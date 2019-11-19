@@ -3,10 +3,10 @@
 
 int main () {
   @autoreleasepool {
-    Car *toyota = [[Car alloc] init];
+    Car *toyota = [[[Car alloc] init] autorelease];
 
     [toyota setModel:@"Toyota Corolla"];
-    NSLog(@"Created a %@", [toyota model]);
+    NSLog(@"Created a %@", toyota.model);
 
     toyota.model = @"Toyota Camry";
     NSLog(@"Changed the car to a %@", toyota.model);

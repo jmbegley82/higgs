@@ -4,7 +4,8 @@
   double _odometer;
 }
 
-@synthesize model = _model;
+//@synthesize model = _model;
+@synthesize model;
 
 - (void)drive {
   NSLog(@"Driving a %@. Vrooom!", self.model);
