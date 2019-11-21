@@ -1,6 +1,8 @@
 CC = clang
 include $(GNUSTEP_MAKEFILES)/common.make
 
+PACKAGE_NAME = Higgs
+VERSION = 0.1
 TOOL_NAME = Main Blocktest DictionaryTest
 
 Main_OBJC_FILES = main.m

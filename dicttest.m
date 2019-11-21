@@ -52,6 +52,12 @@ int main () {
 	  NSLog(@"number = %@", [dict[@"number"] class]);
 	  NSLog(@"object = %@", [dict[@"object"] class]);
 	  NSLog(@"dict = %@", [maynardsDict[@"dict"] class]);
+
+	  for (NSNumber *nv in dict) {
+		  NSLog(@"type info:  %@ -> %@", nv, [nv class]);
+		  if([nv isKindOfClass:[NSValue class]])
+			  NSLog(@"NSValue extra info -> %@", [NSString stringWithUTF8String:[nv objCType]]);
+	  }
 	  //NSLog(@"number = %@", [dict[@"number"] class]);
 
 /*
