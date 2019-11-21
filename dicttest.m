@@ -38,7 +38,7 @@ int main () {
 	  //NSLog(@"dict type string is %@", [NSString stringWithUTF8String:[maynardsDict[@"dict"] objCType]]);
 //	  NSString* ns_check2 = [NSString stringWithUTF8String:nv_check2.objCType];
 //	  NSLog(@"number type string is %@", ns_check2);
-
+/*
 	  if([[dict valueForKey:@"object"] isKindOfClass:[NSValue class]]) {
 		  NSLog(@"object is an NSValue, as expected.");
 	  } else {
@@ -47,6 +47,13 @@ int main () {
 
 	  if([dict[@"object"] isKindOfClass:[NSValue class]])
 		  NSLog(@"object is an NSValue, as expected, %@", [maynardsDict[@"dict"] class]);
+*/
+	  NSLog(@"Type stuff:");
+	  NSLog(@"number = %@", [dict[@"number"] class]);
+	  NSLog(@"object = %@", [dict[@"object"] class]);
+	  NSLog(@"dict = %@", [maynardsDict[@"dict"] class]);
+	  //NSLog(@"number = %@", [dict[@"number"] class]);
+
 /*
 // BAD LOGIC
 	  if([[dict valueForKey:@"number"] isKindOfClass:[NSValue class]]) {
