@@ -22,6 +22,9 @@ int main () {
 	  [nv_check getValue:&ps_check];
 	  NSLog(@"myNumber = %d",myNumber);
 	  NSLog(@"ps_check.modifier = %f", ps_check.modifier);
+	  for(NSNumber* thisNumber in dict) {
+		  NSLog(@"%@", thisNumber);
+	  }
 	  NSMutableDictionary* maynardsDict = [[NSMutableDictionary alloc] autorelease];
 	  maynardsDict[@"dict"] = dict;
 	  NSMutableDictionary* unfamiliarDict = [maynardsDict objectForKey:@"dict"];
@@ -29,6 +32,30 @@ int main () {
 	  NSValue* nv_check2 = [unfamiliarDict objectForKey:@"object"];
 	  [nv_check2 getValue:&ps_check2];
 	  NSLog(@"ps_check2.modifier = %f", ps_check2.modifier);
+
+	  NSLog(@"object type string is %@", [NSString stringWithUTF8String:[dict[@"object"] objCType]]);
+	  NSLog(@"number type string is %@", [NSString stringWithUTF8String:[dict[@"number"] objCType]]);
+	  //NSLog(@"dict type string is %@", [NSString stringWithUTF8String:[maynardsDict[@"dict"] objCType]]);
+//	  NSString* ns_check2 = [NSString stringWithUTF8String:nv_check2.objCType];
+//	  NSLog(@"number type string is %@", ns_check2);
+
+	  if([[dict valueForKey:@"object"] isKindOfClass:[NSValue class]]) {
+		  NSLog(@"object is an NSValue, as expected.");
+	  } else {
+		  NSLog(@"object is not an NSValue, which is awkward.");
+	  }
+
+	  if([dict[@"object"] isKindOfClass:[NSValue class]])
+		  NSLog(@"object is an NSValue, as expected, %@", [maynardsDict[@"dict"] class]);
+/*
+// BAD LOGIC
+	  if([[dict valueForKey:@"number"] isKindOfClass:[NSValue class]]) {
+
+		  NSLog(@"number is an NSValue, which is weird.");
+	  } else {
+		  NSLog(@"number is not an NSValue, which is expected.");
+	  }
+*/
   }
   return 0;
 }
