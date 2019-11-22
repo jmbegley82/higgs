@@ -6,14 +6,14 @@ VERSION = 0.1
 TOOL_NAME = Main Blocktest DictionaryTest
 
 Main_OBJC_FILES = main.m
-Main_OBJCFLAGS = -fblocks -Icarulator/
+Main_OBJCFLAGS = -Icarulator/
 Main_SUBPROJECTS = carulator
 
 #TOOL_NAME = Blocktest
 Blocktest_OBJC_FILES = blocktest.m
 Blocktest_OBJCFLAGS = -fblocks
 
-DictionaryTest_OBJC_FILES = dicttest.m
-DictionaryTest_OBJCFLAGS = -fblocks
+DictionaryTest_OBJC_FILES = Plist.m dicttest.m
+DictionaryTest_OBJCFLAGS =
 
 include $(GNUSTEP_MAKEFILES)/tool.make

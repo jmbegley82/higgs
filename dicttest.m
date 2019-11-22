@@ -1,10 +1,25 @@
 #import <Foundation/Foundation.h>
+#import "dicttest.h"
+#import "Plist.h"
 
+/*
 struct pointlessStruct {
 	int bullHonkey;
 	double modifier;
 	bool fleebJuice;
 };
+
+void ListAllIds(NSDictionary* dict) {
+	NSLog(@"Info for Dictionary:");
+	  for (id nv in dict) {
+		  NSLog(@"type info:  %@ -> %@", nv, [dict[nv] class]);
+		  if([dict[nv] isKindOfClass:[NSValue class]])
+			  NSLog(@"NSValue extra info -> %@", [NSString stringWithUTF8String:[dict[nv] objCType]]);
+		  else if([dict[nv] isKindOfClass:[NSDictionary class]])
+			  ListAllIds(dict[nv]);
+	  }
+}
+*/
 
 int main () {
   @autoreleasepool {
@@ -53,22 +68,11 @@ int main () {
 	  NSLog(@"object = %@", [dict[@"object"] class]);
 	  NSLog(@"dict = %@", [maynardsDict[@"dict"] class]);
 
-	  for (id nv in dict) {
-		  NSLog(@"type info:  %@ -> %@", nv, [dict[nv] class]);
-		  if([dict[nv] isKindOfClass:[NSValue class]])
-			  NSLog(@"NSValue extra info -> %@", [NSString stringWithUTF8String:[dict[nv] objCType]]);
-	  }
-	  //NSLog(@"number = %@", [dict[@"number"] class]);
-
-/*
-// BAD LOGIC
-	  if([[dict valueForKey:@"number"] isKindOfClass:[NSValue class]]) {
-
-		  NSLog(@"number is an NSValue, which is weird.");
-	  } else {
-		  NSLog(@"number is not an NSValue, which is expected.");
-	  }
-*/
+	  ListAllIds(dict);
+	  ListAllIds(maynardsDict);
+	  ListAllIds(unfamiliarDict);
+	  NSString* plist = [Plist objToPlistAsString:maynardsDict];
+	  NSLog(@"Plist test:\n%@", plist);
   }
   return 0;
 }
