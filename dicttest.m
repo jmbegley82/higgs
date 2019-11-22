@@ -73,6 +73,9 @@ int main () {
 	  ListAllIds(unfamiliarDict);
 	  NSString* plist = [Plist objToPlistAsString:maynardsDict];
 	  NSLog(@"Plist test:\n%@", plist);
+	  NSLog(@"Plist test 2:\n");
+	  NSDictionary* additionalDict = [Plist plistToObjectFromString:plist];
+	  ListAllIds(additionalDict);
   }
   return 0;
 }
