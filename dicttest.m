@@ -80,6 +80,7 @@ int main () {
 	  NSLog(@"Conversion test:");
 	  NSMutableDictionary* myDict = [[NSMutableDictionary alloc] autorelease];
 	  PStoNSD(ps, myDict);
+	  ListAllIds(myDict);
 	  struct pointlessStruct ps2;
 	  NSDtoPS(myDict, &ps2);
 	  NSMutableDictionary* myHairyDict = [[NSMutableDictionary alloc] autorelease];
@@ -87,6 +88,7 @@ int main () {
 	  ListAllIds(myHairyDict);
 	  plist = [Plist objToPlistAsString:myHairyDict];
 	  NSLog(@"Plist test 3:\n%@", plist);
+	  NSLog(@"%@", myHairyDict);
   }
   return 0;
 }
