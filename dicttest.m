@@ -89,6 +89,7 @@ int main () {
 	  plist = [Plist objToPlistAsString:myHairyDict];
 	  NSLog(@"Plist test 3:\n%@", plist);
 	  NSLog(@"%@", myHairyDict);
+	  free(ps);
   }
   return 0;
 }
