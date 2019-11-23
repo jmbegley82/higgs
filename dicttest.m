@@ -50,7 +50,7 @@ int main () {
 
 	  NSLog(@"object type string is %@", [NSString stringWithUTF8String:[dict[@"object"] objCType]]);
 	  NSLog(@"number type string is %@", [NSString stringWithUTF8String:[dict[@"number"] objCType]]);
-	  //NSLog(@"dict type string is %@", [NSString stringWithUTF8String:[maynardsDict[@"dict"] objCType]]);
+//	  NSLog(@"dict type string is %@", [NSString stringWithUTF8String:[maynardsDict[@"dict"] objCType]]);
 //	  NSString* ns_check2 = [NSString stringWithUTF8String:nv_check2.objCType];
 //	  NSLog(@"number type string is %@", ns_check2);
 /*
@@ -76,6 +76,17 @@ int main () {
 	  NSLog(@"Plist test 2:\n");
 	  NSDictionary* additionalDict = [Plist plistToObjectFromString:plist];
 	  ListAllIds(additionalDict);
+
+	  NSLog(@"Conversion test:");
+	  NSMutableDictionary* myDict = [[NSMutableDictionary alloc] autorelease];
+	  PStoNSD(ps, myDict);
+	  struct pointlessStruct ps2;
+	  NSDtoPS(myDict, &ps2);
+	  NSMutableDictionary* myHairyDict = [[NSMutableDictionary alloc] autorelease];
+	  PStoNSD(&ps2, myHairyDict);
+	  ListAllIds(myHairyDict);
+	  plist = [Plist objToPlistAsString:myHairyDict];
+	  NSLog(@"Plist test 3:\n%@", plist);
   }
   return 0;
 }

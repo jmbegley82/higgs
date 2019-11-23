@@ -9,6 +9,23 @@ struct pointlessStruct {
 	bool fleebJuice;
 };
 
+bool PStoNSD(struct pointlessStruct* ps, NSMutableDictionary* nsd) {
+	if(ps == NULL || nsd == NULL) return false;
+	// TODO:  make this actually work!
+	nsd[@"bullHonkey"] = [NSNumber numberWithInt:ps->bullHonkey];
+	nsd[@"modifier"] = [NSNumber numberWithDouble:ps->modifier];
+	nsd[@"fleebJuice"] = [NSNumber numberWithBool:ps->fleebJuice];
+	return true;
+}
+
+bool NSDtoPS(NSDictionary* nsd, struct pointlessStruct* ps) {
+	if(ps == NULL || nsd == NULL) return false;
+	ps->bullHonkey = [nsd[@"bullHonkey"] intValue];
+	ps->modifier = [nsd[@"modifier"] doubleValue];
+	ps->fleebJuice = [nsd[@"fleebJuice"] boolValue];
+	return true;
+}
+
 void ListAllIds(NSDictionary* dict) {
 	NSLog(@"Info for Dictionary:");
 	for (id nv in dict) {
