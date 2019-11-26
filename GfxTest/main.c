@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -10,7 +11,7 @@ int main(int argc, char** argv) {
 	}
 
 	SDL_Window* _window = NULL;
-	_window = SDL_CreateWindow("GfxTest", 800, 600, 0, 0,
+	_window = SDL_CreateWindow("GfxTest", 0, 0, 800, 600,
 			SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if(_window == NULL) {
 		printf("Could not create window!\n");
@@ -26,12 +27,18 @@ int main(int argc, char** argv) {
 		return -3;
 	}
 
-	SDL_UpdateWindowSurface(_window);
 	while(1) {
 		SDL_Event event;
 		while(SDL_PollEvent(&event)) {
-			// shrug
+			if(event.type == SDL_QUIT)
+				return 0;
 		}
+		SDL_Rect fillRect = { 0, 0, 800, 600 };
+		SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x0F, 0xFF);
+		SDL_RenderFillRect(_renderer, &fillRect);
+		//SDL_UpdateWindowSurface(_window);
+		SDL_RenderPresent(_renderer);
+		usleep(1000);
 	}
 	return 0;
 }
