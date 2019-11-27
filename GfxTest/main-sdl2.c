@@ -33,9 +33,9 @@ int main(int argc, char** argv) {
 			if(event.type == SDL_QUIT)
 				return 0;
 		}
-		SDL_Rect fillRect = { 0, 0, 800, 600 };
-		SDL_SetRenderDrawColor(_renderer, 0x00, 0x00, 0x0F, 0xFF);
-		SDL_RenderFillRect(_renderer, &fillRect);
+		//SDL_Rect fillRect = { 0, 0, 800, 600 };
+		SDL_SetRenderDrawColor(_renderer, 0x1F, 0x00, 0x1F, 0xFF);
+		SDL_RenderFillRect(_renderer, NULL); // &fillRect);
 		//SDL_UpdateWindowSurface(_window);
 		SDL_RenderPresent(_renderer);
 		usleep(1000);

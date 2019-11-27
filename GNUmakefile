@@ -19,8 +19,11 @@ DictionaryTest_OBJCFLAGS =
 PthreadTest_C_FILES = PthreadTest/main.c
 PthreadTest_CFLAGS = -pthread
 
-GfxTest_C_FILES = GfxTest/main.c
-GfxTest_CFLAGS = -pthread -I/usr/local/include -g
-GfxTest_LDFLAGS = -L/usr/local/lib -lSDL2 -lSDL2_image
+#GfxTest_C_FILES = GfxTest/main.c
+#GfxTest_CFLAGS = -pthread -I/usr/local/include -g
+#GfxTest_LDFLAGS = -L/usr/local/lib -lSDL2 -lSDL2_image
+GfxTest_CC_FILES = GfxTest/LUtil.cpp GfxTest/main.cpp
+GfxTest_CCFLAGS = -pthread -I/usr/local/include -g
+GfxTest_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut
 
 include $(GNUSTEP_MAKEFILES)/tool.make
