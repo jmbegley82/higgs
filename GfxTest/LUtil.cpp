@@ -52,22 +52,23 @@ void render() {
     glEnd();
 */
     if(gColorMode == COLOR_MODE_CYAN) {
-	    //Solid cyan
+	    // RGBK
 	    glBegin(GL_QUADS);
-	    glColor3f(0.f, 1.f, 1.f);
-	    glVertex2f(-50.f, -50.f);
-	    glVertex2f(50.f,  -50.f);
-	    glVertex2f(50.f,   50.f);
-	    glVertex2f(-50.f,  50.f);
+	    glColor4f(0.f, 1.f, 0.f, 1.f); glVertex2f(-200.f, -200.f);
+	    glColor4f(1.f, 0.f, 0.f, 1.f); glVertex2f( 200.f, -200.f);
+	    glColor4f(0.f, 0.f, 1.f, 1.f); glVertex2f( 200.f,  200.f);
+	    glColor4f(0.f, 0.f, 0.f, 1.f); glVertex2f(-200.f,  200.f);
 	    glEnd();
+	    //gColorMode = COLOR_MODE_MULTI;
     } else {
-	    //RYGB Mix
+	    // "CMY"K
 	    glBegin(GL_QUADS);
-	    glColor3f(1.f, 0.f, 0.f); glVertex2f(-50.f, -50.f);
-	    glColor3f(1.f, 1.f, 0.f); glVertex2f( 50.f, -50.f);
-	    glColor3f(0.f, 1.f, 0.f); glVertex2f( 50.f,  50.f);
-	    glColor3f(0.f, 0.f, 1.f); glVertex2f(-50.f,  50.f);
+	    glColor4f(1.f, 1.f, 0.f, 1.f); glVertex2f(-200.f, -200.f);
+	    glColor4f(1.f, 0.f, 1.f, 1.f); glVertex2f( 200.f, -200.f);
+	    glColor4f(0.f, 1.f, 1.f, 1.f); glVertex2f( 200.f,  200.f);
+	    glColor4f(0.f, 0.f, 0.f, 1.f); glVertex2f(-200.f,  200.f);
 	    glEnd();
+	    //gColorMode = COLOR_MODE_CYAN;
     }
     //Update screen
     glutSwapBuffers();
