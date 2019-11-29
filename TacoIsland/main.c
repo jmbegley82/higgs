@@ -3,6 +3,7 @@
 #include <GL/glu.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <assert.h>
 
 #define SCREEN_WIDTH 640
@@ -10,8 +11,8 @@
 #define SCREEN_FPS 60
 
 GLuint tex   = 0;
-GLuint tex_w = 0;
-GLuint tex_h = 0;
+//GLuint tex_w = 0;
+//GLuint tex_h = 0;
 
 bool initGL() {
 	glMatrixMode(GL_PROJECTION);
@@ -29,7 +30,8 @@ bool initGL() {
 	return true;
 }
 
-GLuint* getCheckerboard() {
+GLuint* getCheckerboard(GLubyte r1, GLubyte g1, GLubyte b1, GLubyte a1,
+	      GLubyte r2, GLubyte g2, GLubyte b2, GLubyte a2) {
 	GLuint* retval = NULL;
 	const int cbWidth = 128;
 	const int cbHeight = 128;
@@ -39,23 +41,25 @@ GLuint* getCheckerboard() {
 	for(int i=0; i<cbPixels; ++i) {
 		GLubyte* pixel = (GLubyte*)&retval[i];
 		if(i/128&16^i%128&16) {
-			pixel[0] = 0xFF;
-			pixel[1] = 0xFF;
-			pixel[2] = 0xFF;
+			pixel[0] = r1;
+			pixel[1] = g1;
+			pixel[2] = b1;
+			pixel[3] = a1;
 		} else {
-			pixel[0] = 0xFF;
-			pixel[1] = 0x00;
-			pixel[2] = 0x00;
+			pixel[0] = r2;
+			pixel[1] = g2;
+			pixel[2] = b2;
+			pixel[3] = a2;
 		}
-		pixel[3] = 0xFF;
 	}
 
 	return retval;
 }
 
-GLuint getCBTexture() {
+GLuint getCBTexture(GLubyte r1, GLubyte g1, GLubyte b1, GLubyte a1,
+	      GLubyte r2, GLubyte g2, GLubyte b2, GLubyte a2) {
 	GLuint retval = 0;
-	GLuint* cb = getCheckerboard();
+	GLuint* cb = getCheckerboard(r1, g1, b1, a1, r2, g2, b2, a2);
 	assert(cb != NULL);
 	glGenTextures(1, &retval);
 	glBindTexture(GL_TEXTURE_2D, retval);
@@ -73,6 +77,9 @@ GLuint getCBTexture() {
 }
 
 void update() {
+	if(tex != 0) glDeleteTextures(1, &tex);
+	tex = getCBTexture((GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255),
+			(GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255));
 }
 
 void render() {
@@ -113,12 +120,14 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	tex = getCBTexture();
+	//tex = getCBTexture(0xFF, 0x7F, 0x00, 0xFF, 0xFF, 0x3F, 0x00, 0xFF);
 	
 	//glutKeyboardFunction(handleKeys);
 	glutDisplayFunc(render);
 
 	glutTimerFunc(1000/SCREEN_FPS, runMainLoop, 0);
 	glutMainLoop();
+
+	if(tex != 0) glDeleteTextures(1, &tex);
 	return 0;
 }
