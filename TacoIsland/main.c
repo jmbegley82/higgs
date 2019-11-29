@@ -8,7 +8,7 @@
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
-#define SCREEN_FPS 60
+#define SCREEN_FPS 23.976
 
 GLuint tex   = 0;
 //GLuint tex_w = 0;
@@ -40,7 +40,7 @@ GLuint* getCheckerboard(GLubyte r1, GLubyte g1, GLubyte b1, GLubyte a1,
 	retval = malloc(sizeof(GLuint)*cbPixels);
 	for(int i=0; i<cbPixels; ++i) {
 		GLubyte* pixel = (GLubyte*)&retval[i];
-		if(i/128&16^i%128&16) {
+		if((i/128&16)^(i%128&16)) {
 			pixel[0] = r1;
 			pixel[1] = g1;
 			pixel[2] = b1;
@@ -67,7 +67,10 @@ GLuint getCBTexture(GLubyte r1, GLubyte g1, GLubyte b1, GLubyte a1,
 	free(cb);	//iffy part 1
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glBindTexture(GL_TEXTURE_2D, NULL);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	GLenum error = glGetError();
 	if(error != GL_NO_ERROR) {
 		printf("OpenGL error:  %s\n", gluErrorString(error));
@@ -78,8 +81,12 @@ GLuint getCBTexture(GLubyte r1, GLubyte g1, GLubyte b1, GLubyte a1,
 
 void update() {
 	if(tex != 0) glDeleteTextures(1, &tex);
-	tex = getCBTexture((GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255),
-			(GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255));
+	tex = getCBTexture(
+//			(GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255),
+			(GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(255),
+//			(GLuint)(63+rand()%127), (GLuint)(63+rand()%31), (GLuint)(63+rand()%31), (GLuint)(255),
+			(GLuint)(31+rand()%127), (GLuint)(31+rand()%127), (GLuint)(31+rand()%127), (GLuint)(255));
+//			0,0,0,0);
 }
 
 void render() {
