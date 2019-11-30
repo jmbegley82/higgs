@@ -18,7 +18,6 @@ GLuint tex   = 0;
 GLuint* bitmap = NULL;
 pthread_t updCb;
 pthread_mutex_t bitmapMutex;
-bool texLock = false;
 bool stillAlive = true;
 
 //GLuint tex_w = 0;
@@ -73,10 +72,8 @@ GLuint getCBTexture() {
 	glGenTextures(1, &retval);
 	glBindTexture(GL_TEXTURE_2D, retval);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 128, 128, 0, GL_RGBA, GL_UNSIGNED_BYTE, cb);
-	//free(cb);	//iffy part 1
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -90,13 +87,6 @@ GLuint getCBTexture() {
 
 void update() {
 	if(tex != 0) glDeleteTextures(1, &tex);
-/*	tex = getCBTexture(
-//			(GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255),
-			(GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(rand()%255), (GLuint)(255),
-//			(GLuint)(63+rand()%127), (GLuint)(63+rand()%31), (GLuint)(63+rand()%31), (GLuint)(255),
-			(GLuint)(31+rand()%127), (GLuint)(31+rand()%127), (GLuint)(31+rand()%127), (GLuint)(255));
-//			0,0,0,0);
-*/
 	tex = getCBTexture();
 }
 
@@ -122,22 +112,16 @@ void render() {
 }
 
 void runMainLoop(int val) {
-	while(texLock);  // wait until tex is unlocked
-	texLock = true;
 	pthread_mutex_lock(&bitmapMutex);
 	update();
 	pthread_mutex_unlock(&bitmapMutex);
 	render();
-	texLock = false;
 	glutTimerFunc(1000/SCREEN_FPS, runMainLoop, val);
 }
 
 /*
 void runUpdateLoop(int val) {
-	while(texLock);
-	texLock = true;
 	update();
-	texLock = false;
 	glutTimerFunc(1000/TEX_FPS, runUpdateLoop, val);
 }
 */
