@@ -33,4 +33,7 @@
 
 # jmb
 obj
+*.swp
+*.core
 **/*.swp
+**/*.core
