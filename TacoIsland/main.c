@@ -9,8 +9,11 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define SCREEN_FPS 23.976
+#define TEX_FPS 5
+//23.976
 
 GLuint tex   = 0;
+bool texLock = false;
 //GLuint tex_w = 0;
 //GLuint tex_h = 0;
 
@@ -111,9 +114,20 @@ void render() {
 }
 
 void runMainLoop(int val) {
-	update();
+//	update();
+	while(texLock);  // wait until tex is unlocked
+	texLock = true;
 	render();
+	texLock = false;
 	glutTimerFunc(1000/SCREEN_FPS, runMainLoop, val);
+}
+
+void runUpdateLoop(int val) {
+	while(texLock);
+	texLock = true;
+	update();
+	texLock = false;
+	glutTimerFunc(1000/TEX_FPS, runUpdateLoop, val);
 }
 
 int main(int argc, char** argv) {
@@ -133,6 +147,7 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(render);
 
 	glutTimerFunc(1000/SCREEN_FPS, runMainLoop, 0);
+	glutTimerFunc(1000/TEX_FPS, runUpdateLoop, 0);
 	glutMainLoop();
 
 	if(tex != 0) glDeleteTextures(1, &tex);
