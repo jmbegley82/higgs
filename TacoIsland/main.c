@@ -11,7 +11,7 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define SCREEN_FPS 60
-#define TEX_FPS 60
+#define TEX_FPS 23.976
 //23.976
 
 GLuint tex   = 0;
@@ -146,7 +146,8 @@ void* updateCheckerboard(void* arg) {
 	while(stillAlive) {
 		pthread_mutex_lock(&bitmapMutex);
 		if(bitmap != NULL) free(bitmap);
-		bitmap = getCheckerboard(0xFF,0xFF,0xFF,0xFF, rand()%255,0x00,0x00,0xFF);
+		bitmap = getCheckerboard(rand()%255,rand()%255,rand()%255,0xFF,
+					 rand()%255,rand()%255,rand()%255,0xFF);
 		pthread_mutex_unlock(&bitmapMutex);
 		usleep(1000/TEX_FPS*1000);
 	}
