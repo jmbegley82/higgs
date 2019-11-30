@@ -85,7 +85,7 @@ GLuint getCBTexture() {
 	return retval;
 }
 
-void update() {
+void updateTex() {
 	if(tex != 0) glDeleteTextures(1, &tex);
 	tex = getCBTexture();
 }
@@ -113,7 +113,7 @@ void render() {
 
 void runMainLoop(int val) {
 	pthread_mutex_lock(&bitmapMutex);
-	update();
+	updateTex();
 	pthread_mutex_unlock(&bitmapMutex);
 	render();
 	glutTimerFunc(1000/SCREEN_FPS, runMainLoop, val);

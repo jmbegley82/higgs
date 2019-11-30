@@ -1,6 +1,8 @@
 #next up:
-Write a class that acts as a C++ wrapper for an NSMutableDictionary
-PThread
+objc:  Write a class that acts as a C++ wrapper for an NSMutableDictionary
+TacoIsland:  Rewrite so that it generates ~128 checkerboard color patterns on
+	start, loads all as textures, and swaps through them (this will
+	probably negate the usefulness of threads for now)
 
 #Game-related:
 Modularized engine:
