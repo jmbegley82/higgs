@@ -3,7 +3,8 @@ include $(GNUSTEP_MAKEFILES)/common.make
 
 PACKAGE_NAME = Higgs
 VERSION = 0.1
-TOOL_NAME = Main Blocktest DictionaryTest PthreadTest GfxTest TacoIsland
+TOOL_NAME = Main Blocktest DictionaryTest PthreadTest GfxTest TacoIsland \
+	    AsyncDemo
 
 Main_OBJC_FILES = main.m
 Main_OBJCFLAGS = -Icarulator/
@@ -29,5 +30,9 @@ GfxTest_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut
 TacoIsland_C_FILES = TacoIsland/main.c
 TacoIsland_CFLAGS = -pthread -I/usr/local/include -g
 TacoIsland_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut
+
+AsyncDemo_C_FILES = AsyncDemo/FieldMgr.c AsyncDemo/main.c
+AsyncDemo_CFLAGS = -pthread -I/usr/local/include -g
+AsyncDemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut
 
 include $(GNUSTEP_MAKEFILES)/tool.make
