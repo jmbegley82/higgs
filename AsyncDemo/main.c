@@ -32,6 +32,9 @@ bool initGL() {
 	glLoadIdentity();
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	GLenum error = glGetError();
 	if(error != GL_NO_ERROR) {
 		printf("OpenGL error: %s\n", gluErrorString(error));
@@ -131,8 +134,8 @@ void* updateCheckerboard(void* arg) {
 	while(stillAlive) {
 		pthread_mutex_lock(&bitmapMutex);
 		if(bitmap != NULL) free(bitmap);
-		bitmap = getCheckerboard(rand()%255,rand()%255,rand()%255,0xFF,
-					 rand()%255,rand()%255,rand()%255,0xFF);
+		bitmap = getCheckerboard(rand()%255,rand()%255,rand()%255,rand()%127,
+					 rand()%255,rand()%255,rand()%255,rand()%255);
 		pthread_mutex_unlock(&bitmapMutex);
 		usleep(1000/TEX_FPS*1000);
 	}
