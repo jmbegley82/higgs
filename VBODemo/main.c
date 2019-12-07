@@ -125,8 +125,8 @@ void initVBO() {
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 		glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLuint), idata, GL_DYNAMIC_DRAW);
 		//unbind
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBindBufferARB(GL_ARRAY_BUFFER, 0);
+		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }
 
