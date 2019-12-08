@@ -1,4 +1,7 @@
 CC = clang
+JMCFLAGS = -g -fprofile-instr-generate -fcoverage-mapping
+JMLDFLAGS = -fprofile-instr-generate
+
 include $(GNUSTEP_MAKEFILES)/common.make
 
 PACKAGE_NAME = Higgs
@@ -21,22 +24,22 @@ PthreadTest_C_FILES = PthreadTest/main.c
 PthreadTest_CFLAGS = -pthread
 
 #GfxTest_C_FILES = GfxTest/main.c
-#GfxTest_CFLAGS = -pthread -I/usr/local/include -g
+#GfxTest_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
 #GfxTest_LDFLAGS = -L/usr/local/lib -lSDL2 -lSDL2_image
 GfxTest_CC_FILES = GfxTest/LUtil.cpp GfxTest/main.cpp
-GfxTest_CCFLAGS = -pthread -I/usr/local/include -g
-GfxTest_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut
+GfxTest_CCFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
+GfxTest_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut ${JMLDFLAGS}
 
 TacoIsland_C_FILES = TacoIsland/main.c
-TacoIsland_CFLAGS = -pthread -I/usr/local/include -g
-TacoIsland_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut
+TacoIsland_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
+TacoIsland_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut ${JMLDFLAGS}
 
 AsyncDemo_C_FILES = AsyncDemo/FieldMgr.c AsyncDemo/main.c
-AsyncDemo_CFLAGS = -pthread -I/usr/local/include -g
-AsyncDemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut
+AsyncDemo_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
+AsyncDemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut ${JMLDFLAGS}
 
 VBODemo_C_FILES = VBODemo/FieldMgr.c VBODemo/main.c
-VBODemo_CFLAGS = -pthread -I/usr/local/include -g
-VBODemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU
+VBODemo_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
+VBODemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
 
 include $(GNUSTEP_MAKEFILES)/tool.make

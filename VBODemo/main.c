@@ -221,7 +221,6 @@ void render() {
 	glDisableClientState(GL_VERTEX_ARRAY);
 	*/
 	glLoadIdentity();
-	//texture.render((screen width - imgw) / 2, (screen height - imgh) / 2)
 	if(textureID != 0) {
 		// tex coordinates
 		GLfloat ttop = 0.f;

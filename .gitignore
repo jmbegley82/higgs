@@ -35,5 +35,7 @@
 obj
 *.swp
 *.core
+*.profraw
 **/*.swp
 **/*.core
+**/*.profraw
