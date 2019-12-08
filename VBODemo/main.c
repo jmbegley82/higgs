@@ -42,7 +42,7 @@ GLuint vertexBuffer = 0;
 GLuint indexBuffer = 0;
 
 GLuint textureID = 0;
-void* pixels = NULL;
+void* tmppixels = NULL;
 GLuint imageWidth = 0;
 GLuint imageHeight = 0;
 GLuint textureWidth = 0;
@@ -98,9 +98,9 @@ void freeTexture() {
 		glDeleteTextures(1, &textureID);
 		textureID = 0;
 	}
-	if(pixels != NULL) {
-		free(pixels);
-		pixels = NULL;
+	if(tmppixels != NULL) {
+		free(tmppixels);
+		tmppixels = NULL;
 	}
 	imageWidth = 0;
 	imageHeight = 0;
@@ -127,6 +127,8 @@ void initVBO() {
 		//unbind
 		glBindBufferARB(GL_ARRAY_BUFFER, 0);
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, 0);
+		//free(tmppixels);
+		//tmppixels = NULL;
 	}
 }
 
@@ -150,6 +152,8 @@ bool loadTexFromPixels32(GLuint* pixels, GLuint imgw, GLuint imgh, GLuint texw, 
 		return false;
 	}
 	initVBO();
+	free(tmppixels);
+	tmppixels = NULL;
 	return true;
 }
 
