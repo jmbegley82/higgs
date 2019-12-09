@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <valgrind/valgrind.h>
+//#include <valgrind/valgrind.h>
 
 #define SCREEN_W 800
 #define SCREEN_H 480
