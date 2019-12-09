@@ -134,6 +134,7 @@ void initVBO() {
 		glGenBuffersARB(1, &vertexBuffer);
 		glBindBufferARB(GL_ARRAY_BUFFER, vertexBuffer);
 		glBufferDataARB(GL_ARRAY_BUFFER, 4*sizeof(VertexData2D), vdata, GL_DYNAMIC_DRAW);
+		//glBufferSubDataARB(GL_ARRAY_BUFFER, 0, 4*sizeof(VertexData2D),vdata);
 		//create ibo
 		glGenBuffersARB(1, &indexBuffer);
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
@@ -208,7 +209,7 @@ void render() {
 				//bind VBO
 				glBindBufferARB(GL_ARRAY_BUFFER, vertexBuffer);
 				//draw pentagram
-				glBufferSubDataARB(GL_ARRAY_BUFFER, 0, 4*sizeof(VertexData2D),vdata);
+				//glBufferSubDataARB(GL_ARRAY_BUFFER, 0, 4*sizeof(VertexData2D),vdata);
 				//light candles
 				glTexCoordPointer(2, GL_FLOAT, sizeof(VertexData2D), (GLvoid*)offsetof(VertexData2D, texcoord));
 				//perform incantation

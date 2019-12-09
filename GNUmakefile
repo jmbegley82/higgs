@@ -1,7 +1,8 @@
-CC = clang
-JMCFLAGS = -g
+-include GNUmakefile.preamble
+
+#JMCFLAGS =
 #-fprofile-instr-generate -fcoverage-mapping -fsanitize=address -fno-omit-frame-pointer
-JMLDFLAGS = 
+#JMLDFLAGS =
 #-fprofile-instr-generate -fsanitize=address -fno-omit-frame-pointer -lcxxrt
 
 include $(GNUSTEP_MAKEFILES)/common.make
@@ -44,5 +45,4 @@ VBODemo_C_FILES = VBODemo/FieldMgr.c VBODemo/main.c
 VBODemo_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
 VBODemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
 
--include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/tool.make
