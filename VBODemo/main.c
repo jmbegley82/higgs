@@ -38,6 +38,9 @@ GLuint vertexBuffer = 0;
 //Index buffer
 GLuint indexBuffer = 0;
 
+VertexData2D vdata[4];
+GLuint idata[4];
+
 GLuint textureID = 0;
 GLuint imageWidth = 0;
 GLuint imageHeight = 0;
@@ -102,8 +105,8 @@ void freeTexture() {
 
 void initVBO() {
 	if(textureID != 0 && vertexBuffer == 0) {
-		VertexData2D vdata[4];
-		GLuint idata[4];
+		//VertexData2D vdata[4];
+		//GLuint idata[4];
 		idata[0] = 0;
 		idata[1] = 1;
 		idata[2] = 2;
@@ -190,7 +193,7 @@ void render() {
 		// move to rendering point
 		glTranslatef((SCREEN_W - imageWidth)/2, (SCREEN_H - imageHeight)/2, 0.f);
 		//vertex data?
-		VertexData2D vdata[4];
+//		VertexData2D vdata[4];
 		//texture coordinates
 		vdata[0].texcoord.x = tleft; vdata[0].texcoord.y = ttop;
 		vdata[1].texcoord.x = tright; vdata[1].texcoord.y = ttop;
