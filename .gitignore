@@ -41,3 +41,4 @@ obj
 **/*.core
 **/*.profraw
 **/*.merge
+GNUmakefile.*amble

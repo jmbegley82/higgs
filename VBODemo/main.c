@@ -106,6 +106,25 @@ void freeTexture() {
 void initVBO() {
 	if(textureID != 0 && vertexBuffer == 0) {
 		//VertexData2D vdata[4];
+		// tex coordinates
+		GLfloat ttop = 0.f;
+		GLfloat tbottom = (GLfloat)imageHeight / (GLfloat) textureHeight;
+		GLfloat tleft = 0.f;
+		GLfloat tright = (GLfloat)imageWidth / (GLfloat) textureWidth;
+		// vertex coordinates
+		GLfloat qwidth = imageWidth;
+		GLfloat qheight = imageHeight;
+		//texture coordinates
+		vdata[0].texcoord.x = tleft; vdata[0].texcoord.y = ttop;
+		vdata[1].texcoord.x = tright; vdata[1].texcoord.y = ttop;
+		vdata[2].texcoord.x = tright; vdata[2].texcoord.y = tbottom;
+		vdata[3].texcoord.x = tleft; vdata[3].texcoord.y = tbottom;
+		//vertex positions
+		vdata[0].position.x = 0.f; vdata[0].position.y = 0.f;
+		vdata[1].position.x = qwidth; vdata[1].position.y = 0.f;
+		vdata[2].position.x = qwidth; vdata[2].position.y = qheight;
+		vdata[3].position.x = 0.f; vdata[3].position.y = qheight;
+
 		//GLuint idata[4];
 		idata[0] = 0;
 		idata[1] = 1;
@@ -145,8 +164,6 @@ bool loadTexFromPixels32(GLuint* pixels, GLuint imgw, GLuint imgh, GLuint texw, 
 		return false;
 	}
 	initVBO();
-	//free(pixels);
-	//pixels = NULL;
 	return true;
 }
 
@@ -182,37 +199,23 @@ void render() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	if(textureID != 0) {
-		// tex coordinates
-		GLfloat ttop = 0.f;
-		GLfloat tbottom = (GLfloat)imageHeight / (GLfloat) textureHeight;
-		GLfloat tleft = 0.f;
-		GLfloat tright = (GLfloat)imageWidth / (GLfloat) textureWidth;
-		// vertex coordinates
-		GLfloat qwidth = imageWidth;
-		GLfloat qheight = imageHeight;
-		// move to rendering point
-		glTranslatef((SCREEN_W - imageWidth)/2, (SCREEN_H - imageHeight)/2, 0.f);
-		//vertex data?
-//		VertexData2D vdata[4];
-		//texture coordinates
-		vdata[0].texcoord.x = tleft; vdata[0].texcoord.y = ttop;
-		vdata[1].texcoord.x = tright; vdata[1].texcoord.y = ttop;
-		vdata[2].texcoord.x = tright; vdata[2].texcoord.y = tbottom;
-		vdata[3].texcoord.x = tleft; vdata[3].texcoord.y = tbottom;
-		//vertex positions
-		vdata[0].position.x = 0.f; vdata[0].position.y = 0.f;
-		vdata[1].position.x = qwidth; vdata[1].position.y = 0.f;
-		vdata[2].position.x = qwidth; vdata[2].position.y = qheight;
-		vdata[3].position.x = 0.f; vdata[3].position.y = qheight;
 		// set texture id
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glEnableClientState(GL_VERTEX_ARRAY);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+				//move to rendering point
+				glTranslatef((SCREEN_W - imageWidth)/2, (SCREEN_H - imageHeight)/2, 0.f);
+				//bind VBO
 				glBindBufferARB(GL_ARRAY_BUFFER, vertexBuffer);
+				//draw pentagram
 				glBufferSubDataARB(GL_ARRAY_BUFFER, 0, 4*sizeof(VertexData2D),vdata);
+				//light candles
 				glTexCoordPointer(2, GL_FLOAT, sizeof(VertexData2D), (GLvoid*)offsetof(VertexData2D, texcoord));
+				//perform incantation
 				glVertexPointer(2, GL_FLOAT, sizeof(VertexData2D), (GLvoid*)offsetof(VertexData2D, position));
+				//bind IBO
 				glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+				//draw object
 				glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, NULL);
 			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
