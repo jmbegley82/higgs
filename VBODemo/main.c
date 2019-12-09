@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <valgrind/valgrind.h>
 
 #define SCREEN_W 800
 #define SCREEN_H 480
@@ -32,17 +33,12 @@ typedef struct {
 } State;
 */
 
-//Quad vertices
-Pos2d quadVertices[4];
-//Vertex indices
-GLuint vertexIndices[4];
 //Vertex buffer
 GLuint vertexBuffer = 0;
 //Index buffer
 GLuint indexBuffer = 0;
 
 GLuint textureID = 0;
-void* tmppixels = NULL;
 GLuint imageWidth = 0;
 GLuint imageHeight = 0;
 GLuint textureWidth = 0;
@@ -98,10 +94,6 @@ void freeTexture() {
 		glDeleteTextures(1, &textureID);
 		textureID = 0;
 	}
-	if(tmppixels != NULL) {
-		free(tmppixels);
-		tmppixels = NULL;
-	}
 	imageWidth = 0;
 	imageHeight = 0;
 	textureWidth = 0;
@@ -127,8 +119,6 @@ void initVBO() {
 		//unbind
 		glBindBufferARB(GL_ARRAY_BUFFER, 0);
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, 0);
-		//free(tmppixels);
-		//tmppixels = NULL;
 	}
 }
 
@@ -152,37 +142,12 @@ bool loadTexFromPixels32(GLuint* pixels, GLuint imgw, GLuint imgh, GLuint texw, 
 		return false;
 	}
 	initVBO();
-	free(tmppixels);
-	tmppixels = NULL;
+	//free(pixels);
+	//pixels = NULL;
 	return true;
 }
 
 bool loadMedia() {
-	/*
-	quadVertices[0].x = SCREEN_W * 1.f / 4.f;
-	quadVertices[0].y = SCREEN_H * 1.f / 4.f;
-	quadVertices[1].x = SCREEN_W * 3.f / 4.f;
-	quadVertices[1].y = SCREEN_H * 1.f / 4.f;
-	quadVertices[2].x = SCREEN_W * 3.f / 4.f;
-	quadVertices[2].y = SCREEN_H * 3.f / 4.f;
-	quadVertices[3].x = SCREEN_W * 1.f / 4.f;
-	quadVertices[3].y = SCREEN_H * 3.f / 4.f;
-	vertexIndices[0] = 0;
-	vertexIndices[1] = 1;
-	vertexIndices[2] = 2;
-	vertexIndices[3] = 3;
-
-	//VBO
-	glGenBuffersARB(1, &vertexBuffer);
-	glBindBufferARB(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferDataARB(GL_ARRAY_BUFFER, 4*sizeof(Pos2d), quadVertices, GL_STATIC_DRAW);
-
-	//IBO
-	glGenBuffersARB(1, &indexBuffer);
-	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER, 4*sizeof(GLuint), vertexIndices, GL_STATIC_DRAW);
-	*/
-
 	bool texLoaded = false;
 	ILuint imgID = 0;
 	ilGenImages(1, &imgID);
@@ -212,14 +177,6 @@ void update() {
 
 void render() {
 	glClear(GL_COLOR_BUFFER_BIT);
-	/*
-	glEnableClientState(GL_VERTEX_ARRAY);
-		glBindBufferARB(GL_ARRAY_BUFFER, vertexBuffer);
-		glVertexPointer(2, GL_FLOAT, 0, NULL);
-		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-		glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	*/
 	glLoadIdentity();
 	if(textureID != 0) {
 		// tex coordinates
@@ -285,6 +242,9 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(render);
 	glutTimerFunc(1000/SCREEN_FPS, runMainLoop, 0);
 	glutMainLoop();
+
+	glDeleteBuffersARB(1, &vertexBuffer);
+	glDeleteBuffersARB(1, &indexBuffer);
 
 	return 0;
 }

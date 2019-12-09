@@ -1,6 +1,6 @@
 CC = clang
-JMCFLAGS = -g -fprofile-instr-generate -fcoverage-mapping
-JMLDFLAGS = -fprofile-instr-generate
+JMCFLAGS = -g -fprofile-instr-generate -fcoverage-mapping -fsanitize=address -fno-omit-frame-pointer
+JMLDFLAGS = -fprofile-instr-generate -fsanitize=address -fno-omit-frame-pointer
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
