@@ -197,6 +197,7 @@ void update() {
 }
 
 void render() {
+	// inputs:  textureID, SCREEN_W/H, imageWidth/Height, VBO/IBO, 
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	if(textureID != 0) {
@@ -205,11 +206,19 @@ void render() {
 		glEnableClientState(GL_VERTEX_ARRAY);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 				//move to rendering point
+#ifdef CHAOS
+				glTranslatef(0.f, 0.f, 0.f);
+				//chaos:
+				vdata[rand()%4].position.x = rand()%(SCREEN_W);
+				vdata[rand()%4].position.y = rand()%(SCREEN_H);
+				//resubmit vdata to OpgenGL
+				glBufferSubDataARB(GL_ARRAY_BUFFER, 0, 4*sizeof(VertexData2D),vdata);
+#else
 				glTranslatef((SCREEN_W - imageWidth)/2, (SCREEN_H - imageHeight)/2, 0.f);
+#endif
 				//bind VBO
 				glBindBufferARB(GL_ARRAY_BUFFER, vertexBuffer);
-				//draw pentagram
-				//glBufferSubDataARB(GL_ARRAY_BUFFER, 0, 4*sizeof(VertexData2D),vdata);
+
 				//light candles
 				glTexCoordPointer(2, GL_FLOAT, sizeof(VertexData2D), (GLvoid*)offsetof(VertexData2D, texcoord));
 				//perform incantation
