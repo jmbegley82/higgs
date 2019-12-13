@@ -7,13 +7,33 @@ typedef struct {
 	double y;
 	double w;
 	double h;
+	// platform dependent and this non-serializable
+	void* vboID;
+	void* iboID;
+	void* texID;
 } Cel;
+
+/**
+ * int initFieldMgr()
+ * Initialized FieldMgr itself (needed to initialize its pthread_mutex)
+ * Use this before anything else!  Also calls initField(FIELD_MAX).
+ * Returns -1 if already initialized, otherwise returns maximum number
+ * of objects in _field
+ */
+int initFieldMgr();
+
+/**
+ * int initField(int max)
+ * Deletes _field if it exists, and recreates an empty one with #count items
+ * This is a temporary function
+ */
+int initField(int max);
 
 /**
  * Cel* getRenderList()
  * Returns an array of Cel structs to be used to draw the scene
  * Must be freed after use!
  */
-Cel* getRenderList();
+Cel** getRenderList();
 
 #endif //FIELDMGR_H

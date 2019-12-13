@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stddef.h>
-//#include <valgrind/valgrind.h>
+#include "FieldMgr.h"
 
 #define SCREEN_W 800
 #define SCREEN_H 480
@@ -200,6 +200,10 @@ void render() {
 	// inputs:  textureID, SCREEN_W/H, imageWidth/Height, VBO/IBO, 
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
+	Cel** test = getRenderList();
+	if(test != NULL) {
+		printf("What the hell??\n");
+	}
 	if(textureID != 0) {
 		// set texture id
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -245,6 +249,7 @@ int main(int argc, char** argv) {
 	glutInitDisplayMode(GLUT_DOUBLE);
 	glutInitWindowSize(SCREEN_W, SCREEN_H);
 	glutCreateWindow("VBODemo");
+	initFieldMgr();
 	if(!initGL()) {
 		printf("Unable to create window!\n");
 		return -1;
