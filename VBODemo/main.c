@@ -200,10 +200,15 @@ void render() {
 	// inputs:  textureID, SCREEN_W/H, imageWidth/Height, VBO/IBO, 
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
-	Cel** test = getRenderList();
-	if(test != NULL) {
+	//Cel** test = getRenderList();
+	CelGroup cg = getRenderGroup();
+	if(cg.count > 0) {
 		printf("What the hell??\n");
 	}
+	for(int i=0; i<cg.count; i++) {
+		free(cg.cels[i]);
+	}
+	free(cg.cels);
 	if(textureID != 0) {
 		// set texture id
 		glBindTexture(GL_TEXTURE_2D, textureID);

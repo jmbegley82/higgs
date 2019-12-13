@@ -13,6 +13,11 @@ typedef struct {
 	void* texID;
 } Cel;
 
+typedef struct {
+	int count;
+	Cel** cels;
+} CelGroup;
+
 /**
  * int initFieldMgr()
  * Initialized FieldMgr itself (needed to initialize its pthread_mutex)
@@ -35,5 +40,7 @@ int initField(int max);
  * Must be freed after use!
  */
 Cel** getRenderList();
+
+CelGroup getRenderGroup();
 
 #endif //FIELDMGR_H

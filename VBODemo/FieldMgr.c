@@ -78,8 +78,8 @@ bool addToField(const char* id, double x, double y, double w, double h, void* vb
 }
 
 Cel** getRenderList() {
+	// not threadsafe; use getRenderGroup() instead!
 	Cel** retval = NULL;
-	pthread_mutex_lock(&_holdUp);
 	if(_fieldCount > 0) {
 		malloc(sizeof(Cel*)*_fieldCount);
 		for(int i=0; i<_fieldCount; i++) {
@@ -97,6 +97,14 @@ Cel** getRenderList() {
 			*/
 		}
 	}
+	return retval;
+}
+
+CelGroup getRenderGroup() {
+	CelGroup retval;
+	pthread_mutex_lock(&_holdUp);
+	retval.count = _fieldCount;
+	retval.cels = getRenderList();
 	pthread_mutex_unlock(&_holdUp);
 	return retval;
 }
