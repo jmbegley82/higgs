@@ -12,6 +12,7 @@ typedef struct {
 } Cel;
 
 typedef struct {
+	char* identity;
 	Cel* cels;			//array of cels
 	double speed;			//rate at which cels are flipped
 	unsigned int currentFrame;	//current frame
@@ -26,9 +27,21 @@ typedef struct {
 
 void newSprite(Sprite* sprite, char* identity, char* animSet, char* anim, double x, double y);
 
+
+// FieldMgr-specific
+// functions ending in Unsafe will NOT be bothering with mutexes
 bool initFieldMgr();
 int initField(int count);
 bool purgeField();
+bool purgeFieldUnsafe();
+int getSpriteCount();
+int getSpriteCountMax();
+int setSpriteCount(int count);
+int setSpriteCountMax(int count);
+int getSpriteCountUnsafe();
+int getSpriteCountMaxUnsafe();
+int setSpriteCountUnsafe(int count);
+int setSpriteCountMaxUnsafe(int count);
 bool addRandoToField();
-
+bool addSpriteToField(char* type, char* identity, double x, double y);
 #endif //FIELDMGR_H

@@ -7,5 +7,6 @@ int main(int argc, char** argv) {
 	purgeField();
 	while(addRandoToField());
 	purgeField();
+	addSpriteToField("terra", "Terra", 200.f, 200.f);
 	return 0;
 }
