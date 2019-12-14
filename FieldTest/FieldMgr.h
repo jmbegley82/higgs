@@ -44,4 +44,9 @@ int setSpriteCountUnsafe(int count);
 int setSpriteCountMaxUnsafe(int count);
 bool addRandoToField();
 bool addSpriteToField(char* type, char* identity, double x, double y);
+int getSpriteIndexById(char* identity);
+int getSpriteIndexByIdUnsafe(char* identity);
+Sprite* getSpriteById(char* identity);
+Sprite* getSpriteByIdUnsafe(char* identity);
+
 #endif //FIELDMGR_H

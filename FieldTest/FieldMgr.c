@@ -184,6 +184,11 @@ bool addSpriteToField(char* type, char* identity, double x, double y) {
 			pthread_mutex_unlock(&_field_mutex);
 			return false;
 		}
+		// make sure nothing with this identity is already present
+		if(getSpriteByIdUnsafe(identity)) {
+			pthread_mutex_unlock(&_field_mutex);
+			return false;
+		}
 		// create Sprite
 		Sprite* theNewSprite = malloc(sizeof(Sprite));
 		newSprite(theNewSprite, identity, type, "default", x, y);
@@ -195,4 +200,44 @@ bool addSpriteToField(char* type, char* identity, double x, double y) {
 		setSpriteCount(sprCount);
 	pthread_mutex_unlock(&_field_mutex);
 	return true;
+}
+
+int getSpriteIndexById(char* identity) {
+	int retval = -1;
+	pthread_mutex_lock(&_field_mutex);
+		retval = getSpriteIndexByIdUnsafe(identity);
+	pthread_mutex_unlock(&_field_mutex);
+	return retval;
+}
+
+int getSpriteIndexByIdUnsafe(char* identity) {
+	int retval = -1;
+	for(int i=0; i<getSpriteCount() && retval == -1; i++) {
+		if(strcmp(identity, _field[i]->identity)==0) {
+			retval = i;
+		}
+	}
+	return retval;
+}
+
+Sprite* getSpriteById(char* identity) {
+	Sprite* retval = NULL;
+	pthread_mutex_lock(&_field_mutex);
+		retval = getSpriteByIdUnsafe(identity);
+	pthread_mutex_unlock(&_field_mutex);
+	return retval;
+}
+
+Sprite* getSpriteByIdUnsafe(char* identity) {
+	Sprite* retval = NULL;
+	/*
+	for(int i=0; i<getSpriteCount() && retval == NULL; i++) {
+		if(strcmp(identity, _field[i]->identity)==0) {
+			retval = _field[i];
+		}
+	}
+	*/
+	int idx = getSpriteIndexById(identity);
+	if(idx >= 0) retval = _field[idx];
+	return retval;
 }
