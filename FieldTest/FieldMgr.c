@@ -94,7 +94,7 @@ bool purgeField() {
 bool addRandoToField() {
 	pthread_mutex_lock(&_spriteCount_mutex);
 	pthread_mutex_lock(&_spriteCountMax_mutex);
-	if(_spriteCount+1 >= _spriteCountMax) {
+	if(_spriteCount >= _spriteCountMax) {
 		pthread_mutex_unlock(&_spriteCountMax_mutex);
 		pthread_mutex_unlock(&_spriteCount_mutex);
 		return false;
