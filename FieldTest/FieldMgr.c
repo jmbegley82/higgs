@@ -13,7 +13,7 @@ unsigned int	_spriteCountMax	= 0;
 Sprite**	_field		= NULL;
 
 pthread_mutex_t _field_mutex;
-pthread_mutex_t _initialized_mutex;
+//pthread_mutex_t _initialized_mutex; // prove this is meaningful
 pthread_mutex_t _spriteCount_mutex;
 pthread_mutex_t _spriteCountMax_mutex;
 
@@ -43,13 +43,13 @@ bool initFieldMgr() {
 	if(_initialized) return false;
 
 	pthread_mutex_init(&_field_mutex, NULL);
-	pthread_mutex_init(&_initialized_mutex, NULL);
+	//pthread_mutex_init(&_initialized_mutex, NULL);
 	pthread_mutex_init(&_spriteCount_mutex, NULL);
 	pthread_mutex_init(&_spriteCountMax_mutex, NULL);
 
-	pthread_mutex_lock(&_initialized_mutex);
+	//pthread_mutex_lock(&_initialized_mutex);
 		_initialized = true;
-	pthread_mutex_unlock(&_initialized_mutex);
+	//pthread_mutex_unlock(&_initialized_mutex);
 
 	initField(SPRITECOUNTMAX_DEFAULT);
 	return true;
@@ -175,7 +175,7 @@ bool addRandoToField() {
 	return true;
 }
 
-bool addSpriteToField(char* type, char* identity, double x, double y) {
+bool addSpriteToField(char* identity, char* type, double x, double y) {
 	// dereference type (for now just pass to newSprite)
 	// make sure _field is not full
 	pthread_mutex_lock(&_field_mutex);
@@ -237,7 +237,74 @@ Sprite* getSpriteByIdUnsafe(char* identity) {
 		}
 	}
 	*/
-	int idx = getSpriteIndexById(identity);
+	int idx = getSpriteIndexByIdUnsafe(identity);
 	if(idx >= 0) retval = _field[idx];
 	return retval;
+}
+
+bool delSpriteById(char* identity) {
+	bool retval = true;
+	pthread_mutex_lock(&_field_mutex);
+		retval = delSpriteByIdUnsafe(identity);
+	pthread_mutex_unlock(&_field_mutex);
+	makeContiguous();
+	return retval;
+}
+
+bool delSpriteByIdUnsafe(char* identity) {
+	int idx = getSpriteIndexByIdUnsafe(identity);
+	/*
+	if(idx == -1) return false;
+	free(_field[idx]);
+	_field[idx] = NULL;
+	return true;
+	*/
+	return delSpriteByIndexUnsafe(idx);
+}
+
+bool delSpriteByIndex(int idx) {
+	bool retval = true;
+	pthread_mutex_lock(&_field_mutex);
+		retval = delSpriteByIndexUnsafe(idx);
+	pthread_mutex_unlock(&_field_mutex);
+	makeContiguous();
+	return retval;
+}
+
+bool delSpriteByIndexUnsafe(int idx) {
+	if(idx > getSpriteCountMaxUnsafe()) return false;
+	if(idx < 0) return false;
+	if(_field[idx] == NULL) return false;
+	printf("delSpriteByIndexUnsafe:  killing %s, x=%f, y=%f\n", _field[idx]->identity, _field[idx]->pos_x,
+			_field[idx]->pos_y);
+	free(_field[idx]);
+	_field[idx] = NULL;
+	return true;
+}
+
+bool makeContiguous() {
+	pthread_mutex_lock(&_field_mutex);
+	pthread_mutex_lock(&_spriteCount_mutex);
+	pthread_mutex_lock(&_spriteCountMax_mutex);
+	int max = getSpriteCountMaxUnsafe();
+	int oldCount = getSpriteCountUnsafe();
+	int newCount = 0;
+	Sprite** newField = malloc(sizeof(Sprite*)*max);
+	for(int i=0; i<max; i++) {
+		if(_field[i] != NULL) {
+			newField[newCount] = _field[i];
+			newCount++;
+		}
+	}
+	if(newCount != oldCount) {
+		free(_field);
+		_field = newField;
+		setSpriteCountUnsafe(newCount);
+	}
+	pthread_mutex_unlock(&_spriteCountMax_mutex);
+	pthread_mutex_unlock(&_spriteCount_mutex);
+	pthread_mutex_unlock(&_field_mutex);
+	printf("makeContiguous:  oldCount=%d, newCount=%d\n", oldCount, newCount);
+	if(newCount != oldCount) return true;
+	return false;
 }
