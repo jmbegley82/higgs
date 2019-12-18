@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <pthread.h>
+#include <sys/time.h>
 #include "FieldMgr.h"
 
 #define SPRITECOUNTMAX_DEFAULT 256
@@ -106,7 +107,9 @@ bool initFieldMgr() {
 	//pthread_mutex_lock(&_initialized_mutex);
 		_initialized = true;
 	//pthread_mutex_unlock(&_initialized_mutex);
-
+	struct timeval t;
+	gettimeofday(&t, NULL);
+	srand(t.tv_sec ^ t.tv_usec);
 	initField(SPRITECOUNTMAX_DEFAULT);
 	return true;
 }
