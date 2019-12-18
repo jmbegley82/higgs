@@ -13,14 +13,21 @@ typedef struct {
 
 typedef struct {
 	char* identity;
-	Cel* cels;			//array of cels
+	Cel** cels;			//array of cels
 	double speed;			//rate at which cels are flipped
 	unsigned int currentFrame;	//current frame
 	unsigned int frameCount;	//total number of frames
 } CelSet;
 
 typedef struct {
-	CelSet celset;
+	char* identity;
+	unsigned int setCount;
+	CelSet** sets;
+} AnimationSet;
+
+typedef struct {
+	AnimationSet** anims;
+	unsigned int currentSetIdx;
 	char identity[16];
 	double pos_x, pos_y;
 } Sprite;

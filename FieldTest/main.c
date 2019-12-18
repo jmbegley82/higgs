@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 #include "FieldMgr.h"
 
@@ -21,7 +22,26 @@ int main(int argc, char** argv) {
 	bool failboat = addSpriteToField("Terra", "terra", 400.f, 300.f);
 	assert(!failboat);
 	assert(getSpriteById("Terra")->pos_y == 200.f);
-	delSpriteByIndex(0);
+	//delSpriteByIndex(getSpriteIndexById("Terra"));
+	Sprite* myass = getSpriteById("Terra");
+	printf("%s %f\n", myass->anims[0]->identity,
+			  myass->anims[0]->sets[0]->cels[0]->width); //;myass->anims.identity);
+	delSpriteById("Terra");
 	assert(getSpriteCount() == 0);
+
+	while(addRandoToField());
+	delSpriteByIndexUnsafe(20);
+	delSpriteByIndexUnsafe(10);
+	delSpriteByIndexUnsafe(12);
+	delSpriteByIndexUnsafe(13);
+	delSpriteByIndexUnsafe(14);
+	delSpriteByIndexUnsafe(15);
+	makeContiguous();
+	makeContiguous();
+	purgeField();
+
+	AnimationSet anim;
+	anim.sets = malloc(sizeof(CelSet)*10);
+	//anim.sets[8].cels = NULL;
 	return 0;
 }
