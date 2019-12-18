@@ -28,5 +28,11 @@ bool delSpriteByIdUnsafe(char* identity);
 bool delSpriteByIndex(int idx);
 bool delSpriteByIndexUnsafe(int idx);
 bool makeContiguous();
+bool makeContiguousUnsafe();
+
+//These two are for using the Unsafe functions externally
+//BE CAREFUL!
+void lockField();
+void unlockField();
 
 #endif //FIELDMGR_H

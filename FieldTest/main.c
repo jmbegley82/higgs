@@ -30,13 +30,17 @@ int main(int argc, char** argv) {
 	assert(getSpriteCount() == 0);
 
 	while(addRandoToField());
+	// test some less-than-safe stuff
+	lockField();
 	delSpriteByIndexUnsafe(20);
 	delSpriteByIndexUnsafe(10);
 	delSpriteByIndexUnsafe(12);
 	delSpriteByIndexUnsafe(13);
 	delSpriteByIndexUnsafe(14);
 	delSpriteByIndexUnsafe(15);
-	makeContiguous();
+	makeContiguousUnsafe();
+	unlockField();
+	// ok that's enough unsafe stuff
 	makeContiguous();
 	purgeField();
 

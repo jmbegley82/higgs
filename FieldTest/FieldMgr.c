@@ -252,9 +252,14 @@ bool delSpriteByIndexUnsafe(int idx) {
 }
 
 bool makeContiguous() {
-	pthread_mutex_lock(&_field_mutex);
-	pthread_mutex_lock(&_spriteCount_mutex);
-	pthread_mutex_lock(&_spriteCountMax_mutex);
+	bool retval;
+	lockField();
+		retval = makeContiguousUnsafe();
+	unlockField();
+	return retval;
+}
+
+bool makeContiguousUnsafe() {
 	int max = getSpriteCountMaxUnsafe();
 	int oldCount = getSpriteCountUnsafe();
 	int newCount = 0;
@@ -270,10 +275,19 @@ bool makeContiguous() {
 		_field = newField;
 		setSpriteCountUnsafe(newCount);
 	}
+	printf("makeContiguousUnsafe:  oldCount=%d, newCount=%d\n", oldCount, newCount);
+	if(newCount != oldCount) return true;
+	return false;
+}
+
+void lockField() {
+	pthread_mutex_lock(&_field_mutex);
+	pthread_mutex_lock(&_spriteCount_mutex);
+	pthread_mutex_lock(&_spriteCountMax_mutex);
+}
+
+void unlockField() {
 	pthread_mutex_unlock(&_spriteCountMax_mutex);
 	pthread_mutex_unlock(&_spriteCount_mutex);
 	pthread_mutex_unlock(&_field_mutex);
-	printf("makeContiguous:  oldCount=%d, newCount=%d\n", oldCount, newCount);
-	if(newCount != oldCount) return true;
-	return false;
 }
