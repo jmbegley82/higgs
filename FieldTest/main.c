@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "FieldMgr.h"
+#include "CelSet.h"
 
 int main(int argc, char** argv) {
 	initFieldMgr();
@@ -44,8 +45,13 @@ int main(int argc, char** argv) {
 	makeContiguous();
 	purgeField();
 
-	AnimationSet anim;
-	anim.sets = malloc(sizeof(CelSet)*10);
+	//AnimationSet anim;
+	//anim.sets = malloc(sizeof(CelSet)*10);
 	//anim.sets[8].cels = NULL;
+	CelSet* cs = getPHCelSet("testee", 60.f, 20);
+	tickCelSet(cs, 31.f);
+	tickCelSet(cs, 30.f);
+	tickCelSet(cs, 301.f);
+	tickCelSet(cs, 1200.f);
 	return 0;
 }
