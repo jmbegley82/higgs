@@ -4,7 +4,9 @@
 #include <string.h>
 #include <pthread.h>
 #include <sys/time.h>
+
 #include "FieldMgr.h"
+#include "Sprite.h"
 
 #define SPRITECOUNTMAX_DEFAULT 256
 
@@ -18,84 +20,6 @@ pthread_mutex_t _field_mutex;
 pthread_mutex_t _spriteCount_mutex;
 pthread_mutex_t _spriteCountMax_mutex;
 
-//Sprite-related:
-/*
-Cel phc[] = {{4, 0.f, 1.f, 2.f, 3.f},
-	    {5, 0.f, 1.f, 2.f, 3.f},
-	    {6, 0.f, 1.f, 2.f, 3.f}};
-CelSet phcs[] = {{"defaultcs", (Cel**)&phc, 5.f, 0, 1},
-		 {"otherone",  (Cel**)&phc, 7.f, 0, 1}};
-AnimationSet phas = {"default", 1, (CelSet**)phcs};
-*/
-
-char* phcsid = "ph celset";
-char* phasid = "ph animset";
-
-Cel* getPHCel(Image img, double width, double height, double offset_x, double offset_y) {
-	Cel* retval = malloc(sizeof(Cel));
-	retval->img = img;
-	retval->width = width;
-	retval->height = height;
-	retval->offset_x = offset_x;
-	retval->offset_y = offset_y;
-	return retval;
-}
-
-CelSet* getPHCelSet(char* identity, double speed, unsigned int frameCount) {
-	CelSet* retval = malloc(sizeof(CelSet));
-	retval->identity = identity;
-	retval->cels = malloc(sizeof(Cel)*frameCount);
-	for(int i=0; i<frameCount; i++) {
-		retval->cels[i] = getPHCel(i, 20.f, 20.f, -10.f, -10.f);
-	}
-	retval->speed = speed;
-	retval->currentFrame = 0;
-	retval->frameCount = frameCount;
-	return retval;
-}
-
-AnimationSet* getPHAnimSet(char* identity, unsigned int setCount) {
-	AnimationSet* retval = malloc(sizeof(AnimationSet));
-	retval->identity = identity;
-	retval->sets = malloc(sizeof(CelSet)*setCount);
-	for(int i=0; i<setCount; i++) {
-		retval->sets[i] = getPHCelSet(phcsid, 0.5f, 5);
-	}
-	retval->setCount = setCount;
-	return retval;
-}
-
-Sprite* getPHSprite(char* identity, unsigned int animCount, double pos_x, double pos_y) {
-	Sprite* retval = malloc(sizeof(Sprite));
-	strcpy(retval->identity, identity);
-	retval->anims = malloc(sizeof(AnimationSet)*animCount);
-	for(int i=0; i<animCount; i++) {
-		retval->anims[i] = getPHAnimSet(phasid, 5);
-	}
-	retval->pos_x = pos_x;
-	retval->pos_y = pos_y;
-	return retval;
-}
-
-/*
-bool getPlaceholderAnim(AnimationSet* cs) {
-	cs->identity = phas.identity;
-	cs->sets = phas.sets;
-	cs->setCount = phas.setCount;
-	return true;
-}
-
-void newSprite(Sprite* sprite, char* identity, char* animSet, char* anim, double x, double y) {
-	strcpy(sprite->identity, identity);
-	//ignore animSet for now
-	//ignore anim for now and use placeholder
-	getPlaceholderAnim(&sprite->anims);
-	sprite->pos_x = x;
-	sprite->pos_y = y;
-}
-*/
-
-//Field-related:
 bool initFieldMgr() {
 	if(_initialized) return false;
 
@@ -225,7 +149,6 @@ bool addRandoToField() {
 		//Sprite* myNewSprite = malloc(sizeof(Sprite));
 		char bsname[16] = "";
 		sprintf(bsname, "poppycock%d", rand()%999);
-		//newSprite(myNewSprite, bsname, "animset1", "anim1", 200.f, 200.f);
 		Sprite* myNewSprite = getPHSprite(bsname, 5, 100.f, 200.f);
 		_field[sprCount] = myNewSprite;
 		printf("_field[%d].identity is %s\n", sprCount, myNewSprite->identity);
@@ -236,7 +159,7 @@ bool addRandoToField() {
 }
 
 bool addSpriteToField(char* identity, char* type, double x, double y) {
-	// dereference type (for now just pass to newSprite)
+	// dereference type
 	// make sure _field is not full
 	pthread_mutex_lock(&_field_mutex);
 		int sprCount = getSpriteCount();
@@ -250,8 +173,6 @@ bool addSpriteToField(char* identity, char* type, double x, double y) {
 			return false;
 		}
 		// create Sprite
-		//Sprite* theNewSprite = malloc(sizeof(Sprite));
-		//newSprite(theNewSprite, identity, type, "default", x, y);
 		Sprite* theNewSprite = getPHSprite(identity, 5, 400.f, 200.f);
 		// add to _field
 		_field[sprCount] = theNewSprite;
