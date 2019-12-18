@@ -159,7 +159,7 @@ bool addRandoToField() {
 }
 
 bool addSpriteToField(char* identity, char* type, double x, double y) {
-	// dereference type
+	// TODO: dereference type
 	// make sure _field is not full
 	pthread_mutex_lock(&_field_mutex);
 		int sprCount = getSpriteCount();
@@ -212,13 +212,6 @@ Sprite* getSpriteById(char* identity) {
 
 Sprite* getSpriteByIdUnsafe(char* identity) {
 	Sprite* retval = NULL;
-	/*
-	for(int i=0; i<getSpriteCount() && retval == NULL; i++) {
-		if(strcmp(identity, _field[i]->identity)==0) {
-			retval = _field[i];
-		}
-	}
-	*/
 	int idx = getSpriteIndexByIdUnsafe(identity);
 	if(idx >= 0) retval = _field[idx];
 	return retval;
@@ -235,12 +228,6 @@ bool delSpriteById(char* identity) {
 
 bool delSpriteByIdUnsafe(char* identity) {
 	int idx = getSpriteIndexByIdUnsafe(identity);
-	/*
-	if(idx == -1) return false;
-	free(_field[idx]);
-	_field[idx] = NULL;
-	return true;
-	*/
 	return delSpriteByIndexUnsafe(idx);
 }
 
