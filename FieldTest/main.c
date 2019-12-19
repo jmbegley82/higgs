@@ -25,8 +25,12 @@ int main(int argc, char** argv) {
 	assert(getSpriteById("Terra")->pos_y == 200.f);
 	//delSpriteByIndex(getSpriteIndexById("Terra"));
 	Sprite* myass = getSpriteById("Terra");
-	printf("%s %f\n", myass->anims[0]->identity,
-			  myass->anims[0]->sets[0]->cels[0]->width); //;myass->anims.identity);
+	printf("%s %f\n", myass->anims->identity,
+			  myass->anims->sets[0]->cels[0]->width); //;myass->anims.identity);
+	QuadPoint qp = getQuad(myass);
+	printf("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
+			qp.topRight.x, qp.topRight.y, qp.bottomLeft.x, qp.bottomLeft.y,
+			qp.bottomRight.x, qp.bottomRight.y);
 	delSpriteById("Terra");
 	assert(getSpriteCount() == 0);
 

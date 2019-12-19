@@ -6,6 +6,7 @@
 typedef struct {
 	char* identity;
 	unsigned int setCount;
+	unsigned int currentSetIdx;
 	CelSet** sets;
 } AnimationSet;
 

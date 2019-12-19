@@ -18,5 +18,6 @@ AnimationSet* getPHAnimSet(char* identity, unsigned int setCount) {
 		retval->sets[i] = getPHCelSet(phcsid, 0.5f, 5);
 	}
 	retval->setCount = setCount;
+	retval->currentSetIdx = 0;
 	return retval;
 }

@@ -10,14 +10,27 @@
 
 char* phasid = "ph animset";
 
-Sprite* getPHSprite(char* identity, unsigned int animCount, double pos_x, double pos_y) {
+Sprite* getPHSprite(char* identity, double pos_x, double pos_y) {
 	Sprite* retval = malloc(sizeof(Sprite));
 	strcpy(retval->identity, identity);
-	retval->anims = malloc(sizeof(AnimationSet)*animCount);
-	for(int i=0; i<animCount; i++) {
-		retval->anims[i] = getPHAnimSet(phasid, 5);
-	}
+	retval->anims = getPHAnimSet(phasid, 5);
 	retval->pos_x = pos_x;
 	retval->pos_y = pos_y;
+	return retval;
+}
+
+QuadPoint getQuad(Sprite* sprite) {
+	QuadPoint retval; // = {{0,0}, {1,1}, {2,2}, {3,3}};
+	AnimationSet* currentASet = sprite->anims;
+	CelSet* currentCSet = currentASet->sets[currentASet->currentSetIdx];
+	Cel* currentCel = currentCSet->cels[currentCSet->currentFrame];
+	retval.topLeft.x = sprite->pos_x + currentCel->offset_x;
+	retval.topLeft.y = sprite->pos_y + currentCel->offset_y;
+	retval.topRight.x = retval.topLeft.x + currentCel->width;
+	retval.topRight.y = retval.topLeft.y;
+	retval.bottomLeft.x = retval.topLeft.x;
+	retval.bottomLeft.y = retval.topLeft.y + currentCel->height;
+	retval.bottomRight.x = retval.topRight.x;
+	retval.bottomRight.y = retval.bottomLeft.y;
 	return retval;
 }

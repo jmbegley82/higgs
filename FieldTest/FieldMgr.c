@@ -149,7 +149,7 @@ bool addRandoToField() {
 		//Sprite* myNewSprite = malloc(sizeof(Sprite));
 		char bsname[16] = "";
 		sprintf(bsname, "poppycock%d", rand()%999);
-		Sprite* myNewSprite = getPHSprite(bsname, 5, 100.f, 200.f);
+		Sprite* myNewSprite = getPHSprite(bsname, 100.f, 200.f);
 		_field[sprCount] = myNewSprite;
 		printf("_field[%d].identity is %s\n", sprCount, myNewSprite->identity);
 		sprCount++;
@@ -173,11 +173,11 @@ bool addSpriteToField(char* identity, char* type, double x, double y) {
 			return false;
 		}
 		// create Sprite
-		Sprite* theNewSprite = getPHSprite(identity, 5, 400.f, 200.f);
+		Sprite* theNewSprite = getPHSprite(identity, 400.f, 200.f);
 		// add to _field
 		_field[sprCount] = theNewSprite;
 		printf("_field[%d].identity is %s; .anims.identity is %s\n", sprCount, _field[sprCount]->identity,
-				_field[sprCount]->anims[0]->identity);
+				_field[sprCount]->anims->identity);
 		sprCount++;
 		setSpriteCount(sprCount);
 	pthread_mutex_unlock(&_field_mutex);
