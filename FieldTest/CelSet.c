@@ -28,11 +28,10 @@ bool tickCelSet(CelSet* cs, double time) {
 		while(cs->timeTilFlip <= 0.f) {
 			cs->timeTilFlip += cs->delay;
 			cs->currentFrame++;
-			printf("tickCelSet:  pop!\n");
 			if(cs->currentFrame >= cs->frameCount) {
 				cs->currentFrame = 0;
-				printf("tickCelSet:  pop POP\n");
 			}
+			printf("tickCelSet:  pop! currentFrame is now %d\n", cs->currentFrame);
 		}
 		return true;
 	}

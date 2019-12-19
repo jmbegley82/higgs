@@ -11,5 +11,11 @@ typedef struct {
 } AnimationSet;
 
 AnimationSet* getPHAnimSet(char* identity, unsigned int setCount);
+int getCelSetIndex(AnimationSet* aset, char* identity);
+CelSet* getCurrentCelSet(AnimationSet* aset);
+CelSet* getCelSetById(AnimationSet* aset, char* identity);
+CelSet* getCelSetByIndex(AnimationSet* aset, unsigned int index);
+CelSet* setCelSetById(AnimationSet* aset, char* identity);
+CelSet* setCelSetByIndex(AnimationSet* aset, unsigned int index);
 
 #endif //ANIMATIONSET_H

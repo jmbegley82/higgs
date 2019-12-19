@@ -21,15 +21,32 @@ Sprite* getPHSprite(char* identity, double pos_x, double pos_y) {
 
 QuadPoint getQuad(Sprite* sprite) {
 	QuadPoint retval; // = {{0,0}, {1,1}, {2,2}, {3,3}};
-	AnimationSet* currentASet = sprite->anims;
-	CelSet* currentCSet = currentASet->sets[currentASet->currentSetIdx];
-	Cel* currentCel = currentCSet->cels[currentCSet->currentFrame];
-	retval.topLeft.x = sprite->pos_x + currentCel->offset_x;
-	retval.topLeft.y = sprite->pos_y + currentCel->offset_y;
-	retval.topRight.x = retval.topLeft.x + currentCel->width;
+	double offset_x = 0.f;
+	double offset_y = 0.f;
+	double width = 0.f;
+	double height = 0.f;
+	if(sprite) {
+		AnimationSet* currentASet = sprite->anims;
+		if(currentASet) {
+			CelSet* currentCSet = currentASet->sets[currentASet->currentSetIdx];
+			if(currentCSet) {
+				Cel* currentCel = currentCSet->cels[currentCSet->currentFrame];
+				if(currentCel) {
+					offset_x = currentCel->offset_x;
+					offset_y = currentCel->offset_y;
+					width = currentCel->width;
+					height = currentCel->height;
+				}
+			}
+		}
+	}
+	
+	retval.topLeft.x = sprite->pos_x + offset_x;
+	retval.topLeft.y = sprite->pos_y + offset_y;
+	retval.topRight.x = retval.topLeft.x + width;
 	retval.topRight.y = retval.topLeft.y;
 	retval.bottomLeft.x = retval.topLeft.x;
-	retval.bottomLeft.y = retval.topLeft.y + currentCel->height;
+	retval.bottomLeft.y = retval.topLeft.y + height;
 	retval.bottomRight.x = retval.topRight.x;
 	retval.bottomRight.y = retval.bottomLeft.y;
 	return retval;

@@ -31,6 +31,10 @@ int main(int argc, char** argv) {
 	printf("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
 			qp.topRight.x, qp.topRight.y, qp.bottomLeft.x, qp.bottomLeft.y,
 			qp.bottomRight.x, qp.bottomRight.y);
+	CelSet* cs = getCurrentCelSet(myass->anims);
+	printf("cs identity=%s\n", cs->identity);
+	cs = getCelSetById(myass->anims, "ph celset");
+	printf("cs identity=%s\n", cs->identity);
 	delSpriteById("Terra");
 	assert(getSpriteCount() == 0);
 
@@ -52,10 +56,10 @@ int main(int argc, char** argv) {
 	//AnimationSet anim;
 	//anim.sets = malloc(sizeof(CelSet)*10);
 	//anim.sets[8].cels = NULL;
-	CelSet* cs = getPHCelSet("testee", 60.f, 20);
-	tickCelSet(cs, 31.f);
-	tickCelSet(cs, 30.f);
-	tickCelSet(cs, 301.f);
-	tickCelSet(cs, 1200.f);
+	CelSet* csa = getPHCelSet("testee", 60.f, 20);
+	tickCelSet(csa, 31.f);
+	tickCelSet(csa, 30.f);
+	tickCelSet(csa, 301.f);
+	tickCelSet(csa, 1200.f);
 	return 0;
 }
