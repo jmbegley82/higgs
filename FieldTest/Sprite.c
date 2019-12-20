@@ -51,3 +51,24 @@ QuadPoint getQuad(Sprite* sprite) {
 	retval.bottomRight.y = retval.bottomLeft.y;
 	return retval;
 }
+
+Point getPosition(Sprite* sprite) {
+	Point retval = {0.f, 0.f};
+	if(sprite) {
+		retval.x = sprite->pos_x;
+		retval.y = sprite->pos_y;
+	}
+	return retval;
+}
+
+Point setPosition(Sprite* sprite, double x, double y) {
+	Point retval = {0.f, 0.f};
+	if(sprite) {
+		// TODO: check bounds and adjust accordingly
+		sprite->pos_x = x;
+		sprite->pos_y = y;
+		retval.x = sprite->pos_x;
+		retval.y = sprite->pos_y;
+	}
+	return retval;
+}

@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
 			qp.bottomRight.x, qp.bottomRight.y);
 	CelSet* cs = getCurrentCelSet(myass->anims);
 	printf("cs identity=%s\n", cs->identity);
+	setPosition(myass, 500.f, 500.f);
 	cs = getCelSetById(myass->anims, "ph celset");
 	printf("cs identity=%s\n", cs->identity);
 	delSpriteById("Terra");

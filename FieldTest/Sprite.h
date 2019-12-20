@@ -5,7 +5,10 @@
 
 typedef struct {
 	double x, y;
-} Point;
+} DoublePair;
+
+typedef DoublePair Point;
+typedef DoublePair Motion;
 
 typedef struct {
 	Point topLeft;
@@ -23,5 +26,7 @@ typedef struct {
 
 Sprite* getPHSprite(char* identity, double pos_x, double pos_y);
 QuadPoint getQuad(Sprite* sprite);
+Point getPosition(Sprite* sprite);
+Point setPosition(Sprite* sprite, double x, double y);
 
 #endif //SPRITE_H
