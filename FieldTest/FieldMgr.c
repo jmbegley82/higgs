@@ -81,7 +81,7 @@ bool purgeField() {
 }
 
 bool purgeFieldUnsafe() {
-	printf("%32s:  %s\n", DBGSPEC);
+	printf(DBGFORM"\n", DBGSPEC);
 	int sprCount = getSpriteCount();
 	for(int i=0; i<sprCount; i++) {
 		free(_field[i]);
