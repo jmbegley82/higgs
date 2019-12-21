@@ -2,20 +2,7 @@
 #define SPRITE_H
 
 #include "AnimationSet.h"
-
-typedef struct {
-	double x, y;
-} DoublePair;
-
-typedef DoublePair Point;
-typedef DoublePair Motion;
-
-typedef struct {
-	Point topLeft;
-	Point topRight;
-	Point bottomLeft;
-	Point bottomRight;
-} QuadPoint;
+#include "Geometry.h"
 
 typedef struct {
 	AnimationSet* anims;

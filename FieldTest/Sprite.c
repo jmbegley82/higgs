@@ -1,4 +1,4 @@
-//#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 //#include <stdbool.h>
 #include <string.h>
@@ -7,10 +7,12 @@
 
 #include "Sprite.h"
 #include "AnimationSet.h"
+#include "Debug.h"
 
 char* phasid = "ph animset";
 
 Sprite* getPHSprite(char* identity, double pos_x, double pos_y) {
+	printf(DBGFORM"  %s, %f, %f\n", DBGSPEC, identity, pos_x, pos_y);
 	Sprite* retval = malloc(sizeof(Sprite));
 	strcpy(retval->identity, identity);
 	retval->anims = getPHAnimSet(phasid, 5);
@@ -20,6 +22,7 @@ Sprite* getPHSprite(char* identity, double pos_x, double pos_y) {
 }
 
 QuadPoint getQuad(Sprite* sprite) {
+	printf(DBGFORM"\n", DBGSPEC);
 	QuadPoint retval; // = {{0,0}, {1,1}, {2,2}, {3,3}};
 	double offset_x = 0.f;
 	double offset_y = 0.f;
@@ -53,6 +56,7 @@ QuadPoint getQuad(Sprite* sprite) {
 }
 
 Point getPosition(Sprite* sprite) {
+	printf(DBGFORM"\n", DBGSPEC);
 	Point retval = {0.f, 0.f};
 	if(sprite) {
 		retval.x = sprite->pos_x;
@@ -62,6 +66,7 @@ Point getPosition(Sprite* sprite) {
 }
 
 Point setPosition(Sprite* sprite, double x, double y) {
+	printf(DBGFORM"  %f, %f\n", DBGSPEC, x, y);
 	Point retval = {0.f, 0.f};
 	if(sprite) {
 		// TODO: check bounds and adjust accordingly

@@ -1,6 +1,8 @@
 #ifndef CEL_H
 #define CEL_H
 
+#include "Geometry.h"
+
 typedef unsigned int Image;
 
 typedef struct {

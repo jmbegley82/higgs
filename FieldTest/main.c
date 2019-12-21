@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "FieldMgr.h"
 #include "CelSet.h"
+#include "Geometry.h"
 
 int main(int argc, char** argv) {
 	initFieldMgr();
@@ -34,6 +35,10 @@ int main(int argc, char** argv) {
 	CelSet* cs = getCurrentCelSet(myass->anims);
 	printf("cs identity=%s\n", cs->identity);
 	setPosition(myass, 500.f, 500.f);
+	qp = getQuad(myass);
+	printf("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
+			qp.topRight.x, qp.topRight.y, qp.bottomLeft.x, qp.bottomLeft.y,
+			qp.bottomRight.x, qp.bottomRight.y);
 	cs = getCelSetById(myass->anims, "ph celset");
 	printf("cs identity=%s\n", cs->identity);
 	delSpriteById("Terra");
