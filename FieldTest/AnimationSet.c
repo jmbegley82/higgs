@@ -12,7 +12,7 @@
 char* phcsid = "ph celset";
 
 AnimationSet* getPHAnimSet(char* identity, unsigned int setCount) {
-	printf(DBGFORM"  %s, %d\n", DBGSPEC, identity, setCount);
+	printf(DBGFORM"%s, %d\n", DBGSPEC, identity, setCount);
 	AnimationSet* retval = malloc(sizeof(AnimationSet));
 	retval->identity = identity;
 	retval->sets = malloc(sizeof(CelSet)*setCount);
@@ -25,7 +25,7 @@ AnimationSet* getPHAnimSet(char* identity, unsigned int setCount) {
 }
 
 int getCelSetIndex(AnimationSet* aset, char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	int retval = -1;
 	for(int i=0; i<aset->setCount && retval == -1; i++) {
 		if(strcmp(aset->sets[i]->identity, identity) == 0)
@@ -42,7 +42,7 @@ CelSet* getCurrentCelSet(AnimationSet* aset) {
 }
 
 CelSet* getCelSetById(AnimationSet* aset, char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	CelSet* retval = NULL;
 	/*
 	for(int i=0; i<aset->setCount && retval != NULL; i++) {
@@ -56,7 +56,7 @@ CelSet* getCelSetById(AnimationSet* aset, char* identity) {
 }
 
 CelSet* getCelSetByIndex(AnimationSet* aset, unsigned int index) {
-	printf(DBGFORM"  %d\n", DBGSPEC, index);
+	printf(DBGFORM"%d\n", DBGSPEC, index);
 	CelSet* retval = NULL;
 	if(index < aset->setCount) {
 		retval = aset->sets[index];
@@ -65,7 +65,7 @@ CelSet* getCelSetByIndex(AnimationSet* aset, unsigned int index) {
 }
 
 CelSet* setCelSetById(AnimationSet* aset, char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	CelSet* retval = NULL;
 	int idx = getCelSetIndex(aset, identity);
 	if(idx > -1) {
@@ -75,7 +75,7 @@ CelSet* setCelSetById(AnimationSet* aset, char* identity) {
 }
 
 CelSet* setCelSetByIndex(AnimationSet* aset, unsigned int index) {
-	printf(DBGFORM"  %d\n", DBGSPEC, index);
+	printf(DBGFORM"%d\n", DBGSPEC, index);
 	CelSet* retval = NULL;
 	retval = getCelSetByIndex(aset, index);
 	if(retval) aset->currentSetIdx = index;

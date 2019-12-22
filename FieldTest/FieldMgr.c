@@ -41,7 +41,7 @@ bool initFieldMgr() {
 }
 
 int initField(int count) {
-	printf(DBGFORM"  %d\n", DBGSPEC, count);
+	printf(DBGFORM"%d\n", DBGSPEC, count);
 	int retval = 0;
 	/*
 	if(_field != NULL) {
@@ -64,7 +64,7 @@ int initField(int count) {
 	setSpriteCountMax(count);
 	setSpriteCount(0);
 	retval = count;
-	printf(DBGFORM"  created _field with %d items\n", DBGSPEC, count);
+	printf(DBGFORM"created _field with %d items\n", DBGSPEC, count);
 	return retval;
 }
 
@@ -110,7 +110,7 @@ int getSpriteCountMax() {
 }
 
 int setSpriteCount(int count) {
-	printf(DBGFORM"  %d\n", DBGSPEC, count);
+	printf(DBGFORM"%d\n", DBGSPEC, count);
 	if(count < 0) return -1;
 	int retval = 0;
 	pthread_mutex_lock(&_spriteCount_mutex);
@@ -120,7 +120,7 @@ int setSpriteCount(int count) {
 }
 
 int setSpriteCountMax(int count) {
-	printf(DBGFORM"  %d\n", DBGSPEC, count);
+	printf(DBGFORM"%d\n", DBGSPEC, count);
 	if(count <= 0) return -1;
 	int retval = 0;
 	pthread_mutex_lock(&_spriteCountMax_mutex);
@@ -140,13 +140,13 @@ int getSpriteCountMaxUnsafe() {
 }
 
 int setSpriteCountUnsafe(int count) {
-	printf(DBGFORM"  %d\n", DBGSPEC, count);
+	printf(DBGFORM"%d\n", DBGSPEC, count);
 	_spriteCount = count;
 	return count;
 }
 
 int setSpriteCountMaxUnsafe(int count) {
-	printf(DBGFORM"  %d\n", DBGSPEC, count);
+	printf(DBGFORM"%d\n", DBGSPEC, count);
 	_spriteCountMax = count;
 	return count;
 }
@@ -165,7 +165,7 @@ bool addRandoToField() {
 		sprintf(bsname, "poppycock%d", rand()%999);
 		Sprite* myNewSprite = getPHSprite(bsname, 100.f, 200.f);
 		_field[sprCount] = myNewSprite;
-		printf(DBGFORM"  _field[%d].identity is %s\n", DBGSPEC,
+		printf(DBGFORM"_field[%d].identity is %s\n", DBGSPEC,
 			sprCount, myNewSprite->identity);
 		sprCount++;
 		setSpriteCount(sprCount);
@@ -174,7 +174,7 @@ bool addRandoToField() {
 }
 
 bool addSpriteToField(char* identity, char* type, double x, double y) {
-	printf(DBGFORM"  %s, %s, %f, %f\n", DBGSPEC, identity, type, x, y);
+	printf(DBGFORM"%s, %s, %f, %f\n", DBGSPEC, identity, type, x, y);
 	// TODO: dereference type
 	// make sure _field is not full
 	pthread_mutex_lock(&_field_mutex);
@@ -192,7 +192,7 @@ bool addSpriteToField(char* identity, char* type, double x, double y) {
 		Sprite* theNewSprite = getPHSprite(identity, 400.f, 200.f);
 		// add to _field
 		_field[sprCount] = theNewSprite;
-		printf(DBGFORM"  _field[%d].identity is %s; .anims.identity is %s\n", DBGSPEC,
+		printf(DBGFORM"_field[%d].identity is %s; .anims.identity is %s\n", DBGSPEC,
 				sprCount, _field[sprCount]->identity,
 				_field[sprCount]->anims->identity);
 		sprCount++;
@@ -202,7 +202,7 @@ bool addSpriteToField(char* identity, char* type, double x, double y) {
 }
 
 int getSpriteIndexById(char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	int retval = -1;
 	pthread_mutex_lock(&_field_mutex);
 		retval = getSpriteIndexByIdUnsafe(identity);
@@ -211,7 +211,7 @@ int getSpriteIndexById(char* identity) {
 }
 
 int getSpriteIndexByIdUnsafe(char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	int retval = -1;
 	for(int i=0; i<getSpriteCount() && retval == -1; i++) {
 		if(strcmp(identity, _field[i]->identity)==0) {
@@ -222,7 +222,7 @@ int getSpriteIndexByIdUnsafe(char* identity) {
 }
 
 Sprite* getSpriteById(char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	Sprite* retval = NULL;
 	pthread_mutex_lock(&_field_mutex);
 		retval = getSpriteByIdUnsafe(identity);
@@ -231,7 +231,7 @@ Sprite* getSpriteById(char* identity) {
 }
 
 Sprite* getSpriteByIdUnsafe(char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	Sprite* retval = NULL;
 	int idx = getSpriteIndexByIdUnsafe(identity);
 	if(idx >= 0) retval = _field[idx];
@@ -239,7 +239,7 @@ Sprite* getSpriteByIdUnsafe(char* identity) {
 }
 
 bool delSpriteById(char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	bool retval = true;
 	pthread_mutex_lock(&_field_mutex);
 		retval = delSpriteByIdUnsafe(identity);
@@ -249,13 +249,13 @@ bool delSpriteById(char* identity) {
 }
 
 bool delSpriteByIdUnsafe(char* identity) {
-	printf(DBGFORM"  %s\n", DBGSPEC, identity);
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	int idx = getSpriteIndexByIdUnsafe(identity);
 	return delSpriteByIndexUnsafe(idx);
 }
 
 bool delSpriteByIndex(int idx) {
-	printf(DBGFORM"  %d\n", DBGSPEC, idx);
+	printf(DBGFORM"%d\n", DBGSPEC, idx);
 	bool retval = true;
 	pthread_mutex_lock(&_field_mutex);
 		retval = delSpriteByIndexUnsafe(idx);
@@ -265,11 +265,11 @@ bool delSpriteByIndex(int idx) {
 }
 
 bool delSpriteByIndexUnsafe(int idx) {
-	printf(DBGFORM"  %d\n", DBGSPEC, idx);
+	printf(DBGFORM"%d\n", DBGSPEC, idx);
 	if(idx > getSpriteCountMaxUnsafe()) return false;
 	if(idx < 0) return false;
 	if(_field[idx] == NULL) return false;
-	printf(DBGFORM"  killing %s, x=%f, y=%f\n", DBGSPEC,
+	printf(DBGFORM"killing %s, x=%f, y=%f\n", DBGSPEC,
 		_field[idx]->identity, _field[idx]->pos_x, _field[idx]->pos_y);
 	free(_field[idx]);
 	_field[idx] = NULL;
@@ -302,7 +302,7 @@ bool makeContiguousUnsafe() {
 		_field = newField;
 		setSpriteCountUnsafe(newCount);
 	}
-	printf(DBGFORM"  oldCount=%d, newCount=%d\n", DBGSPEC, oldCount, newCount);
+	printf(DBGFORM"oldCount=%d, newCount=%d\n", DBGSPEC, oldCount, newCount);
 	if(newCount != oldCount) return true;
 	return false;
 }

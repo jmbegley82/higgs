@@ -12,7 +12,7 @@
 char* phasid = "ph animset";
 
 Sprite* getPHSprite(char* identity, double pos_x, double pos_y) {
-	printf(DBGFORM"  %s, %f, %f\n", DBGSPEC, identity, pos_x, pos_y);
+	printf(DBGFORM"%s, %f, %f\n", DBGSPEC, identity, pos_x, pos_y);
 	Sprite* retval = malloc(sizeof(Sprite));
 	strcpy(retval->identity, identity);
 	retval->anims = getPHAnimSet(phasid, 5);
@@ -66,7 +66,7 @@ Point getPosition(Sprite* sprite) {
 }
 
 Point setPosition(Sprite* sprite, double x, double y) {
-	printf(DBGFORM"  %f, %f\n", DBGSPEC, x, y);
+	printf(DBGFORM"%f, %f\n", DBGSPEC, x, y);
 	Point retval = {0.f, 0.f};
 	if(sprite) {
 		// TODO: check bounds and adjust accordingly
