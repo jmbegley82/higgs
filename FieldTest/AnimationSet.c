@@ -24,6 +24,28 @@ AnimationSet* getPHAnimSet(char* identity, unsigned int setCount) {
 	return retval;
 }
 
+AnimationSet* newAnimationSet(char* identity) {
+	printf(DBGFORM"%s\n", DBGSPEC, identity);
+	AnimationSet* retval = malloc(sizeof(AnimationSet));
+	//retval->identity = strcpy;
+	retval->identity = identity;
+	unsigned int setCount = getCSetTypeCount();
+	retval->sets = malloc(sizeof(CelSet)*setCount);
+	//for(int i=0; i<setCount; i++) {
+	//	retval->sets[i] = newCelSet(identity, 0.5f, 5, cels!);
+	//}
+	Cel** cels = malloc(sizeof(Cel)*5);
+	for(int i=0; i<5; i++) {
+		cels[i] = newCel(1, 42.f, 42.f, -21.f, -21.f);
+	}
+	for(int i=0; i<setCount; i++) {
+		retval->sets[i] = newCelSet(phcsid, 1.f, 5, cels);
+	}
+	retval->setCount = setCount;
+	retval->currentSetIdx = 0;
+	return retval;
+}
+
 int getCelSetIndex(AnimationSet* aset, char* identity) {
 	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	int retval = -1;

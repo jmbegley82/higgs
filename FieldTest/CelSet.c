@@ -74,6 +74,7 @@ CelSet* getPHCelSet(char* identity, double delay, unsigned int frameCount) {
 }
 
 CelSet* newCelSet(char* identity, double delay, unsigned int frameCount, Cel** cels) {
+	printf(DBGFORM"%s %f %d\n", DBGSPEC, identity, delay, frameCount);
 	CelSet* retval = malloc(sizeof(CelSet));
 	retval->identity = identity;
 	retval->cels = cels;

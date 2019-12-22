@@ -69,5 +69,7 @@ int main(int argc, char** argv) {
 	tickCelSet(csa, 1200.f);
 	assert(getCSetTypeIndex("walkr")==2);
 	printf("the '%s' tastes like debug\n", getCSetTypeString(25));
+	AnimationSet* asset = newAnimationSet("whynot");
+	printf("%s\n", asset->identity);
 	return 0;
 }

@@ -1,4 +1,4 @@
-//#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 //#include <stdbool.h>
 #include <string.h>
@@ -6,8 +6,10 @@
 //#include <sys/time.h>
 
 #include "Cel.h"
+#include "Debug.h"
 
 Cel* newCel(Image img, double width, double height, double offset_x, double offset_y) {
+	printf(DBGFORM"%d %f %f %f %f\n", DBGSPEC, img, width, height, offset_x, offset_y);
 	Cel* retval = malloc(sizeof(Cel));
 	retval->img = img;
 	retval->width = width;

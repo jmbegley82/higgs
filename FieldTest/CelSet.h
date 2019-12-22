@@ -14,6 +14,7 @@ typedef struct {
 	unsigned int frameCount;	//total number of frames
 } CelSet;
 
+unsigned int getCSetTypeCount();
 unsigned int getCSetTypeIndex(char* type);
 char* getCSetTypeString(unsigned int index);
 CelSet* getPHCelSet(char* identity, double delay, unsigned int frameCount);
