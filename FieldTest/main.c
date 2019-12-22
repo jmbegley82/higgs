@@ -67,5 +67,7 @@ int main(int argc, char** argv) {
 	tickCelSet(csa, 30.f);
 	tickCelSet(csa, 301.f);
 	tickCelSet(csa, 1200.f);
+	assert(getCSetTypeIndex("walkr")==2);
+	printf("the '%s' tastes like debug\n", getCSetTypeString(25));
 	return 0;
 }

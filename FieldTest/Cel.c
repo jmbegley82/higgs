@@ -7,7 +7,7 @@
 
 #include "Cel.h"
 
-Cel* getPHCel(Image img, double width, double height, double offset_x, double offset_y) {
+Cel* newCel(Image img, double width, double height, double offset_x, double offset_y) {
 	Cel* retval = malloc(sizeof(Cel));
 	retval->img = img;
 	retval->width = width;
