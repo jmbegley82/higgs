@@ -1,0 +1,4 @@
+JMCFLAGS = -g3 -DCHAOS
+#-g -fprofile-instr-generate -fcoverage-mapping -fsanitize=address -fno-omit-frame-pointer
+JMLDFLAGS =
+#-fprofile-instr-generate -fsanitize=address -fno-omit-frame-pointer -lcxxrt

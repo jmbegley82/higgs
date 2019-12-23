@@ -13,4 +13,8 @@ typedef struct {
 
 Cel* newCel(Image img, double width, double height, double offset_x, double offset_y);
 
+//front-end:
+//Cel* newCelFromFile(char* file);	// load image from file and set
+					//   attributes mathematically
+
 #endif //CEL_H

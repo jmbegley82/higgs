@@ -14,11 +14,15 @@ typedef struct {
 	unsigned int frameCount;	//total number of frames
 } CelSet;
 
+char** getCSetTypes();
 unsigned int getCSetTypeCount();
 unsigned int getCSetTypeIndex(char* type);
 char* getCSetTypeString(unsigned int index);
 CelSet* getPHCelSet(char* identity, double delay, unsigned int frameCount);
 CelSet* newCelSet(char* identity, double delay, unsigned int frameCount, Cel** cels);
 bool tickCelSet(CelSet* cs, double time);
+
+//front-end:
+//CelSet* netCelSetFromDir(char* path);
 
 #endif //CELSET_H

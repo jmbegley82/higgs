@@ -45,9 +45,11 @@ VBODemo_C_FILES = VBODemo/FieldMgr.c VBODemo/main.c
 VBODemo_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
 VBODemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
 
-FieldTest_C_FILES = FieldTest/Cel.c FieldTest/CelSet.c FieldTest/AnimationSet.c \
+#FieldTest_C_FILES = FieldTest/Cel.c FieldTest/CelSet.c FieldTest/AnimationSet.c \
 		    FieldTest/Sprite.c FieldTest/FieldMgr.c FieldTest/main.c
-FieldTest_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
+FieldTest_C_FILES = GameCommon/main.c
+FieldTest_CFLAGS = -I/usr/local/include ${JMCFLAGS}
 FieldTest_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
+FieldTest_SUBPROJECTS = GameCommon
 
 include $(GNUSTEP_MAKEFILES)/tool.make

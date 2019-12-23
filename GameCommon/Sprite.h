@@ -15,5 +15,7 @@ Sprite* getPHSprite(char* identity, double pos_x, double pos_y);
 QuadPoint getQuad(Sprite* sprite);
 Point getPosition(Sprite* sprite);
 Point setPosition(Sprite* sprite, double x, double y);
+//front-end:
+//Sprite* newSprite(char* identity, Sprite* baseSprite, double pos_x, double pos_y);
 
 #endif //SPRITE_H

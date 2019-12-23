@@ -36,6 +36,10 @@ char *CSetTypes[] = {"default",
 		     "fallu",
 		     "debug"};
 
+char** getCSetTypes() {
+	return CSetTypes;
+}
+
 unsigned int getCSetTypeCount() {
 	return sizeof(CSetTypes)/sizeof(CSetTypes[0]);
 }
