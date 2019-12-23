@@ -1,16 +1,11 @@
 -include GNUmakefile.preamble
 
-#JMCFLAGS =
-#-fprofile-instr-generate -fcoverage-mapping -fsanitize=address -fno-omit-frame-pointer
-#JMLDFLAGS =
-#-fprofile-instr-generate -fsanitize=address -fno-omit-frame-pointer -lcxxrt
-
 include $(GNUSTEP_MAKEFILES)/common.make
 
 PACKAGE_NAME = Higgs
 VERSION = 0.1
 TOOL_NAME = Main Blocktest DictionaryTest PthreadTest GfxTest TacoIsland \
-	    AsyncDemo VBODemo FieldTest
+	    AsyncDemo VBODemo GTest1
 
 Main_OBJC_FILES = main.m
 Main_OBJCFLAGS = -Icarulator/
@@ -47,9 +42,9 @@ VBODemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLA
 
 #FieldTest_C_FILES = FieldTest/Cel.c FieldTest/CelSet.c FieldTest/AnimationSet.c \
 		    FieldTest/Sprite.c FieldTest/FieldMgr.c FieldTest/main.c
-FieldTest_C_FILES = GameCommon/main.c
-FieldTest_CFLAGS = -I/usr/local/include ${JMCFLAGS}
-FieldTest_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
-FieldTest_SUBPROJECTS = GameCommon
+GTest1_C_FILES = GameCommon/main.c
+GTest1_CFLAGS = -I/usr/local/include ${JMCFLAGS}
+GTest1_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
+GTest1_SUBPROJECTS = GameCommon
 
 include $(GNUSTEP_MAKEFILES)/tool.make

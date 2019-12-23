@@ -37,6 +37,7 @@ obj
 *.core
 *.profraw
 *.merge
+**/obj
 **/*.swp
 **/*.core
 **/*.profraw
