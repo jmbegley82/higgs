@@ -9,7 +9,7 @@
 #include "CelSet.h"
 #include "Debug.h"
 
-char *CSetTypes[] = {"default",
+char *_CSetTypes[] = {"default",
 		     "walkl",
 		     "walkr",
 		     "walkd",
@@ -37,18 +37,18 @@ char *CSetTypes[] = {"default",
 		     "debug"};
 
 char** getCSetTypes() {
-	return CSetTypes;
+	return _CSetTypes;
 }
 
 unsigned int getCSetTypeCount() {
-	return sizeof(CSetTypes)/sizeof(CSetTypes[0]);
+	return sizeof(_CSetTypes)/sizeof(_CSetTypes[0]);
 }
 
 unsigned int getCSetTypeIndex(char* type) {
 	unsigned int retval = 0; // if nothing else we get the default
 	bool foundOne = false;
 	for(int i=0; i<getCSetTypeCount() && !foundOne; i++) {
-		if(strcmp(type,CSetTypes[i])==0) {
+		if(strcmp(type,_CSetTypes[i])==0) {
 			foundOne = true;
 			retval = i;
 		}
@@ -59,7 +59,7 @@ unsigned int getCSetTypeIndex(char* type) {
 char* getCSetTypeString(unsigned int index) {
 	char* retval = NULL;
 	if(index<getCSetTypeCount())
-		retval = CSetTypes[index];
+		retval = _CSetTypes[index];
 	return retval;
 }
 
@@ -80,7 +80,9 @@ CelSet* getPHCelSet(char* identity, double delay, unsigned int frameCount) {
 CelSet* newCelSet(char* identity, double delay, unsigned int frameCount, Cel** cels) {
 	printf(DBGFORM"%s %f %d\n", DBGSPEC, identity, delay, frameCount);
 	CelSet* retval = malloc(sizeof(CelSet));
-	retval->identity = identity;
+	// it *should* be impossible to get an out-of-bounds error in the next line
+	// *should*.
+	retval->identity = _CSetTypes[getCSetTypeIndex(identity)];
 	retval->cels = cels;
 	retval->delay = delay;
 	retval->timeTilFlip = delay;
