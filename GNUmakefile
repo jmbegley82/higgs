@@ -4,12 +4,8 @@ include $(GNUSTEP_MAKEFILES)/common.make
 
 PACKAGE_NAME = Higgs
 VERSION = 0.1
-TOOL_NAME = Main Blocktest DictionaryTest PthreadTest GfxTest TacoIsland \
+TOOL_NAME = Blocktest DictionaryTest PthreadTest GfxTest TacoIsland \
 	    AsyncDemo VBODemo GTest1
-
-Main_OBJC_FILES = main.m
-Main_OBJCFLAGS = -Icarulator/
-Main_SUBPROJECTS = carulator
 
 #TOOL_NAME = Blocktest
 Blocktest_OBJC_FILES = blocktest.m
@@ -21,9 +17,6 @@ DictionaryTest_OBJCFLAGS =
 PthreadTest_C_FILES = PthreadTest/main.c
 PthreadTest_CFLAGS = -pthread
 
-#GfxTest_C_FILES = GfxTest/main.c
-#GfxTest_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
-#GfxTest_LDFLAGS = -L/usr/local/lib -lSDL2 -lSDL2_image
 GfxTest_CC_FILES = GfxTest/LUtil.cpp GfxTest/main.cpp
 GfxTest_CCFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
 GfxTest_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut ${JMLDFLAGS}
@@ -40,8 +33,6 @@ VBODemo_C_FILES = VBODemo/FieldMgr.c VBODemo/main.c
 VBODemo_CFLAGS = -pthread -I/usr/local/include ${JMCFLAGS}
 VBODemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
 
-#FieldTest_C_FILES = FieldTest/Cel.c FieldTest/CelSet.c FieldTest/AnimationSet.c \
-		    FieldTest/Sprite.c FieldTest/FieldMgr.c FieldTest/main.c
 GTest1_C_FILES = GameCommon/main.c
 GTest1_CFLAGS = -I/usr/local/include ${JMCFLAGS}
 GTest1_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}

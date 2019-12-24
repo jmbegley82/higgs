@@ -1,8 +1,9 @@
 #next up:
 objc:  Write a class that acts as a C++ wrapper for an NSMutableDictionary
 AsyncDemo:  rewrite to use buffer objects and textures stored in files
+GameCommon:  use current framework and hints to draw sprites to screen
 
-#Game-related:
+#GameCommon:
 Modularized engine:
 A) Part maintains the running game world (portable)
 	(analogues:  FieldMgr)
@@ -27,7 +28,7 @@ C) Part reads the running game world and updates the screen (platform-specific)
 D) Part synchronizes the above nonsense (portable)
 	(analogues:  EventMgr?)
 
-E) A fucking scripting language that's better than Clab (and ATMA)
+E) A scripting language that's better than Clab (and ATMA)
 
 Names?
 A)	SceneMgr
