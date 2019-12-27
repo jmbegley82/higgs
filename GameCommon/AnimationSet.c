@@ -46,6 +46,15 @@ AnimationSet* newAnimationSet(char* identity) {
 	return retval;
 }
 
+AnimationSet* cloneAnimationSet(AnimationSet* base) {
+	AnimationSet* retval = malloc(sizeof(AnimationSet));
+	retval->identity = base->identity;
+	retval->sets = base->sets;
+	retval->setCount = base->setCount;
+	retval->currentSetIdx = base->currentSetIdx;
+	return retval;
+}
+
 int getCelSetIndex(AnimationSet* aset, char* identity) {
 	printf(DBGFORM"%s\n", DBGSPEC, identity);
 	int retval = -1;

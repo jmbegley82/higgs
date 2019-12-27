@@ -12,6 +12,8 @@ typedef struct {
 } Sprite;
 
 Sprite* getPHSprite(char* identity, double pos_x, double pos_y);
+Sprite* newSprite(char* identity, double pos_x, double pos_y);
+Sprite* cloneSprite(char* identity, Sprite* base);
 QuadPoint getQuad(Sprite* sprite);
 Point getPosition(Sprite* sprite);
 Point setPosition(Sprite* sprite, double x, double y);

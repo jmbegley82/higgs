@@ -21,6 +21,19 @@ Sprite* getPHSprite(char* identity, double pos_x, double pos_y) {
 	return retval;
 }
 
+Sprite* newSprite(char* identity, double pos_x, double pos_y) {
+	return getPHSprite(identity, pos_x, pos_y);
+}
+
+Sprite* cloneSprite(char* identity, Sprite* base) {
+	Sprite* retval = malloc(sizeof(Sprite));
+	strcpy(retval->identity, identity);
+	retval->anims = cloneAnimationSet(base->anims);
+	retval->pos_x = base->pos_x;
+	retval->pos_y = base->pos_y;
+	return retval;
+}
+
 QuadPoint getQuad(Sprite* sprite) {
 	printf(DBGFORM"\n", DBGSPEC);
 	QuadPoint retval; // = {{0,0}, {1,1}, {2,2}, {3,3}};
