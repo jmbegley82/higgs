@@ -20,6 +20,7 @@ unsigned int getCSetTypeIndex(char* type);
 char* getCSetTypeString(unsigned int index);
 CelSet* getPHCelSet(char* identity, double delay, unsigned int frameCount);
 CelSet* newCelSet(char* identity, double delay, unsigned int frameCount, Cel** cels);
+CelSet* cloneCelSet(CelSet* base);
 bool tickCelSet(CelSet* cs, double time);
 
 //front-end:

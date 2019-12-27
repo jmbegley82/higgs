@@ -91,6 +91,17 @@ CelSet* newCelSet(char* identity, double delay, unsigned int frameCount, Cel** c
 	return retval;
 }
 
+CelSet* cloneCelSet(CelSet* base) {
+	CelSet* retval = malloc(sizeof(CelSet));
+	retval->identity = base->identity;
+	retval->cels = base->cels;
+	retval->delay = base->delay;
+	retval->timeTilFlip = base->timeTilFlip;
+	retval->currentFrame = base->currentFrame;
+	retval->frameCount = base->frameCount;
+	return retval;
+}
+
 bool tickCelSet(CelSet* cs, double time) {
 	cs->timeTilFlip -= time;
 	if(cs->timeTilFlip <= 0.f) {
