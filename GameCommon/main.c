@@ -4,8 +4,10 @@
 #include "FieldMgr.h"
 #include "CelSet.h"
 #include "Geometry.h"
+#include "Debug.h"
 
 int main(int argc, char** argv) {
+	initDebug();
 	initFieldMgr();
 	initField(32);
 	while(addRandoToField());  // should happen 32 times

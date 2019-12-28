@@ -1,4 +1,4 @@
-JMCFLAGS = -g3 -DCHAOS
+JMCFLAGS = -g3 -DCHAOS -DDEFAULT_LOGLEVEL=3
 #-g -fprofile-instr-generate -fcoverage-mapping -fsanitize=address -fno-omit-frame-pointer
 JMLDFLAGS =
 #-fprofile-instr-generate -fsanitize=address -fno-omit-frame-pointer -lcxxrt

@@ -64,7 +64,7 @@ int initField(int count) {
 	setSpriteCountMax(count);
 	setSpriteCount(0);
 	retval = count;
-	debugprint(LOG_INFO, DBGFORM"created _field with %d items\n", DBGSPEC, count);
+	debugprint(LOG_DEBUG, DBGFORM"created _field with %d items\n", DBGSPEC, count);
 	return retval;
 }
 
@@ -165,7 +165,7 @@ bool addRandoToField() {
 		sprintf(bsname, "poppycock%d", rand()%999);
 		Sprite* myNewSprite = getPHSprite(bsname, 100.f, 200.f);
 		_field[sprCount] = myNewSprite;
-		debugprint(LOG_INFO, DBGFORM"_field[%d].identity is %s\n", DBGSPEC,
+		debugprint(LOG_DEBUG, DBGFORM"_field[%d].identity is %s\n", DBGSPEC,
 			sprCount, myNewSprite->identity);
 		sprCount++;
 		setSpriteCount(sprCount);
@@ -192,7 +192,7 @@ bool addSpriteToField(char* identity, char* type, double x, double y) {
 		Sprite* theNewSprite = getPHSprite(identity, 400.f, 200.f);
 		// add to _field
 		_field[sprCount] = theNewSprite;
-		debugprint(LOG_INFO, DBGFORM"_field[%d].identity is %s; .anims.identity is %s\n", DBGSPEC,
+		debugprint(LOG_DEBUG, DBGFORM"_field[%d].identity is %s; .anims.identity is %s\n", DBGSPEC,
 				sprCount, _field[sprCount]->identity,
 				_field[sprCount]->anims->identity);
 		sprCount++;
@@ -269,7 +269,7 @@ bool delSpriteByIndexUnsafe(int idx) {
 	if(idx > getSpriteCountMaxUnsafe()) return false;
 	if(idx < 0) return false;
 	if(_field[idx] == NULL) return false;
-	debugprint(LOG_INFO, DBGFORM"killing %s, x=%f, y=%f\n", DBGSPEC,
+	debugprint(LOG_DEBUG, DBGFORM"killing %s, x=%f, y=%f\n", DBGSPEC,
 		_field[idx]->identity, _field[idx]->pos_x, _field[idx]->pos_y);
 	free(_field[idx]);
 	_field[idx] = NULL;
@@ -302,7 +302,7 @@ bool makeContiguousUnsafe() {
 		_field = newField;
 		setSpriteCountUnsafe(newCount);
 	}
-	debugprint(LOG_INFO, DBGFORM"oldCount=%d, newCount=%d\n", DBGSPEC, oldCount, newCount);
+	debugprint(LOG_DEBUG, DBGFORM"oldCount=%d, newCount=%d\n", DBGSPEC, oldCount, newCount);
 	if(newCount != oldCount) return true;
 	return false;
 }

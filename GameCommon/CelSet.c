@@ -111,7 +111,7 @@ bool tickCelSet(CelSet* cs, double time) {
 			if(cs->currentFrame >= cs->frameCount) {
 				cs->currentFrame = 0;
 			}
-			debugprint(LOG_INFO, DBGFORM"pop! currentFrame is now %d\n", DBGSPEC, cs->currentFrame);
+			debugprint(LOG_DEBUG, DBGFORM"pop! currentFrame is now %d\n", DBGSPEC, cs->currentFrame);
 		}
 		return true;
 	}

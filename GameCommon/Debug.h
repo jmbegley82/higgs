@@ -1,8 +1,10 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#if !defined LOGLEVEL
-#define LOGLEVEL 2
+#include <stdbool.h>
+
+#if !defined DEFAULT_LOGLEVEL
+#define DEFAULT_LOGLEVEL 0
 #endif
 
 #define DBGFORM "%24s: %24s: "
@@ -14,6 +16,9 @@
 #define LOG_INFO  2
 #define LOG_DEBUG 3
 
+bool initDebug();
+int getLoglevel();
+void setLoglevel(unsigned int level);
 int debugprint(int level, const char * restrict format, ...);
 
 #endif //DEBUG_H
