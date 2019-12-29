@@ -47,12 +47,7 @@ int lprintf(int level, const char * restrict format, ...) {
 int lvprintf(int level, const char * restrict format, va_list args) {
 	int retval = 0;
 	int logLevel = getLoglevel();
-	if(level <= logLevel) {
-		//va_list args;
-		//va_start(args, format);
-		retval = vprintf(format, args);
-		//va_end(args);
-	}
+	if(level <= logLevel) retval = vprintf(format, args);
 	return retval;
 }
 

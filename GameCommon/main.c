@@ -15,33 +15,33 @@ int main(int argc, char** argv) {
 	while(addRandoToField());
 	purgeField();
 	addSpriteToField("Terra", "terra", 200.f, 200.f);
-	Sprite* ass = getSpriteById("Terra");
-	assert(ass != NULL);
-	Sprite* balls = getSpriteById("Nonexist");
-	assert(balls == NULL);
-	int taint = getSpriteIndexById("Terra");
-	assert(taint != -1);
-	int grundle = getSpriteIndexById("Nonexist");
-	assert(grundle == -1);
+	Sprite* tsprite = getSpriteById("Terra");
+	assert(tsprite != NULL);
+	Sprite* spr1 = getSpriteById("Nonexist");
+	assert(spr1 == NULL);
+	int tmpi = getSpriteIndexById("Terra");
+	assert(tmpi != -1);
+	int tmpj = getSpriteIndexById("Nonexist");
+	assert(tmpj == -1);
 	bool failboat = addSpriteToField("Terra", "terra", 400.f, 300.f);
 	assert(!failboat);
 	assert(getSpriteById("Terra")->pos_y == 200.f);
 	//delSpriteByIndex(getSpriteIndexById("Terra"));
-	Sprite* myass = getSpriteById("Terra");
-	infoprint("%s %f\n", myass->anims->identity,
-			  myass->anims->sets[0]->cels[0]->width); //;myass->anims.identity);
-	QuadPoint qp = getQuad(myass);
+	Sprite* mysprite = getSpriteById("Terra");
+	infoprint("%s %f\n", mysprite->anims->identity,
+			  mysprite->anims->sets[0]->cels[0]->width); //;mysprite->anims.identity);
+	QuadPoint qp = getQuad(mysprite);
 	infoprint("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
 			qp.topRight.x, qp.topRight.y, qp.bottomLeft.x, qp.bottomLeft.y,
 			qp.bottomRight.x, qp.bottomRight.y);
-	CelSet* cs = getCurrentCelSet(myass->anims);
+	CelSet* cs = getCurrentCelSet(mysprite->anims);
 	infoprint("cs identity=%s\n", cs->identity);
-	setPosition(myass, 500.f, 500.f);
-	qp = getQuad(myass);
+	setPosition(mysprite, 500.f, 500.f);
+	qp = getQuad(mysprite);
 	infoprint("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
 			qp.topRight.x, qp.topRight.y, qp.bottomLeft.x, qp.bottomLeft.y,
 			qp.bottomRight.x, qp.bottomRight.y);
-	cs = getCelSetById(myass->anims, "ph celset");
+	cs = getCelSetById(mysprite->anims, "ph celset");
 	infoprint("cs identity=%s\n", cs->identity);
 	delSpriteById("Terra");
 	assert(getSpriteCount() == 0);
