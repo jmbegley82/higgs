@@ -28,21 +28,21 @@ int main(int argc, char** argv) {
 	assert(getSpriteById("Terra")->pos_y == 200.f);
 	//delSpriteByIndex(getSpriteIndexById("Terra"));
 	Sprite* myass = getSpriteById("Terra");
-	printf("%s %f\n", myass->anims->identity,
+	infoprint("%s %f\n", myass->anims->identity,
 			  myass->anims->sets[0]->cels[0]->width); //;myass->anims.identity);
 	QuadPoint qp = getQuad(myass);
-	printf("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
+	infoprint("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
 			qp.topRight.x, qp.topRight.y, qp.bottomLeft.x, qp.bottomLeft.y,
 			qp.bottomRight.x, qp.bottomRight.y);
 	CelSet* cs = getCurrentCelSet(myass->anims);
-	printf("cs identity=%s\n", cs->identity);
+	infoprint("cs identity=%s\n", cs->identity);
 	setPosition(myass, 500.f, 500.f);
 	qp = getQuad(myass);
-	printf("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
+	infoprint("(%f,%f) (%f,%f) (%f,%f) (%f,%f)\n", qp.topLeft.x, qp.topLeft.y,
 			qp.topRight.x, qp.topRight.y, qp.bottomLeft.x, qp.bottomLeft.y,
 			qp.bottomRight.x, qp.bottomRight.y);
 	cs = getCelSetById(myass->anims, "ph celset");
-	printf("cs identity=%s\n", cs->identity);
+	infoprint("cs identity=%s\n", cs->identity);
 	delSpriteById("Terra");
 	assert(getSpriteCount() == 0);
 
@@ -70,9 +70,9 @@ int main(int argc, char** argv) {
 	tickCelSet(csa, 301.f);
 	tickCelSet(csa, 1200.f);
 	assert(getCSetTypeIndex("walkr")==2);
-	printf("the '%s' tastes like debug\n", getCSetTypeString(25));
+	infoprint("the '%s' tastes like debug\n", getCSetTypeString(25));
 	AnimationSet* asset = newAnimationSet("whynot");
-	printf("%s\n", asset->identity);
+	infoprint("%s\n", asset->identity);
 	debugprint("debugprint seems to work\n");
 	infoprint("infoprint seems to work\n");
 	warnprint("warnprint seems to work\n");

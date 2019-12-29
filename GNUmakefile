@@ -35,6 +35,7 @@ VBODemo_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLA
 
 GTest1_C_FILES = GameCommon/main.c
 GTest1_CFLAGS = -I/usr/local/include ${JMCFLAGS}
+GTest1_CPPFLAGS =
 GTest1_LDFLAGS = -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lIL -lILU ${JMLDFLAGS}
 GTest1_SUBPROJECTS = GameCommon
 
