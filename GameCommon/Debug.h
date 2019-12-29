@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #if !defined DEFAULT_LOGLEVEL
-#define DEFAULT_LOGLEVEL 0
+#define DEFAULT_LOGLEVEL 2
 #endif
 
 #define DBGFORM "%24s: %24s: "
@@ -20,5 +20,10 @@ bool initDebug();
 int getLoglevel();
 void setLoglevel(unsigned int level);
 int lprintf(int level, const char * restrict format, ...);
+int lvprintf(int level, const char * restrict format, va_list args);
+int errorprint(const char* restrict format, ...);
+int warnprint(const char* restrict format, ...);
+int infoprint(const char* restrict format, ...);
+int debugprint(const char* restrict format, ...);
 
 #endif //DEBUG_H

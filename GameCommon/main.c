@@ -73,5 +73,9 @@ int main(int argc, char** argv) {
 	printf("the '%s' tastes like debug\n", getCSetTypeString(25));
 	AnimationSet* asset = newAnimationSet("whynot");
 	printf("%s\n", asset->identity);
+	debugprint("debugprint seems to work\n");
+	infoprint("infoprint seems to work\n");
+	warnprint("warnprint seems to work\n");
+	errorprint("errorprint seems to work\n");
 	return 0;
 }

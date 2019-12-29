@@ -33,14 +33,61 @@ void setLoglevel(unsigned int level) {
 
 int lprintf(int level, const char * restrict format, ...) {
 	int retval = 0;
-	pthread_mutex_lock(&_loglevel_mutex);
-		int logLevel = _loglevel;
-	pthread_mutex_unlock(&_loglevel_mutex);
+	int logLevel = getLoglevel();
 	if(level <= logLevel) {
 		va_list args;
 		va_start(args, format);
 		retval = vprintf(format, args);
+		//retval = lvprintf(level, format, args);
 		va_end(args);
 	}
+	return retval;
+}
+
+int lvprintf(int level, const char * restrict format, va_list args) {
+	int retval = 0;
+	int logLevel = getLoglevel();
+	if(level <= logLevel) {
+		//va_list args;
+		//va_start(args, format);
+		retval = vprintf(format, args);
+		//va_end(args);
+	}
+	return retval;
+}
+
+int errorprint(const char* restrict format, ...) {
+	int retval = 0;
+	va_list args;
+	va_start(args, format);
+	retval = lvprintf(LOG_ERROR, format, args);
+	va_end(args);
+	return retval;
+}
+
+int warnprint(const char* restrict format, ...) {
+	int retval = 0;
+	va_list args;
+	va_start(args, format);
+	retval = lvprintf(LOG_WARN, format, args);
+	va_end(args);
+	return retval;
+}
+
+int infoprint(const char* restrict format, ...) {
+	int retval = 0;
+	va_list args;
+	va_start(args, format);
+	retval = lvprintf(LOG_INFO, format, args);
+	va_end(args);
+	return retval;
+}
+
+int debugprint(const char* restrict format, ...) {
+	int retval = 0;
+	va_list args;
+	va_start(args, format);
+	retval = lvprintf(LOG_DEBUG, format, args);
+	va_end(args);
 	return retval;
 }
