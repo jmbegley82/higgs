@@ -37,7 +37,7 @@ bool initFieldMgr() {
 	gettimeofday(&t, NULL);
 	srand(t.tv_sec ^ t.tv_usec);
 	initField(SPRITECOUNTMAX_DEFAULT);
-	infoprint(DBGFORM"FieldMgr initialized\n", DBGSPEC);
+	infoprint("FieldMgr initialized\n");
 	return true;
 }
 

@@ -14,6 +14,7 @@ bool initDebug() {
 	if(initialized) return false;
 	pthread_mutex_init(&_loglevel_mutex, NULL);
 	initialized = true;
+	infoprint("Started logging system\n");
 	return true;
 }
 

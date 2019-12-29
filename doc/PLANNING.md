@@ -2,13 +2,6 @@
 objc:  Write a class that acts as a C++ wrapper for an NSMutableDictionary
 AsyncDemo:  Rewrite to use buffer objects and textures stored in files
 GameCommon:  Use current framework and hints to draw sprites to screen
-	     Rewrite current objects to have a new* function to create
-	     objects for storage in *Mgrs, and a clone* function to create
-	     a clone of the object for use in eg. Field (for example,
-	     rewrite newAnimationSet and create cloneAnimationSet).  Objects
-	     created with clone* will be arbitrarily free()able.  Objects
-	     created with new* will invalidate any cloned objects of its
-	     type when free()d
 
 #GameCommon:
 Modularized engine:
