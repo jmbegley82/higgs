@@ -78,7 +78,7 @@ CelSet* getPHCelSet(char* identity, double delay, unsigned int frameCount) {
 }
 
 CelSet* newCelSet(char* identity, double delay, unsigned int frameCount, Cel** cels) {
-	debugprint(LOG_DEBUG, DBGFORM"%s %f %d\n", DBGSPEC, identity, delay, frameCount);
+	lprintf(LOG_DEBUG, DBGFORM"%s %f %d\n", DBGSPEC, identity, delay, frameCount);
 	CelSet* retval = malloc(sizeof(CelSet));
 	// it *should* be impossible to get an out-of-bounds error in the next line
 	// *should*.
@@ -111,7 +111,7 @@ bool tickCelSet(CelSet* cs, double time) {
 			if(cs->currentFrame >= cs->frameCount) {
 				cs->currentFrame = 0;
 			}
-			debugprint(LOG_DEBUG, DBGFORM"pop! currentFrame is now %d\n", DBGSPEC, cs->currentFrame);
+			lprintf(LOG_DEBUG, DBGFORM"pop! currentFrame is now %d\n", DBGSPEC, cs->currentFrame);
 		}
 		return true;
 	}

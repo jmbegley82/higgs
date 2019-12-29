@@ -12,7 +12,7 @@
 char* phasid = "ph animset";
 
 Sprite* getPHSprite(char* identity, double pos_x, double pos_y) {
-	debugprint(LOG_DEBUG, DBGFORM"%s, %f, %f\n", DBGSPEC, identity, pos_x, pos_y);
+	lprintf(LOG_DEBUG, DBGFORM"%s, %f, %f\n", DBGSPEC, identity, pos_x, pos_y);
 	Sprite* retval = malloc(sizeof(Sprite));
 	strcpy(retval->identity, identity);
 	retval->anims = getPHAnimSet(phasid, 5);
@@ -35,7 +35,7 @@ Sprite* cloneSprite(char* identity, Sprite* base) {
 }
 
 QuadPoint getQuad(Sprite* sprite) {
-	debugprint(LOG_DEBUG, DBGFORM"\n", DBGSPEC);
+	lprintf(LOG_DEBUG, DBGFORM"\n", DBGSPEC);
 	QuadPoint retval; // = {{0,0}, {1,1}, {2,2}, {3,3}};
 	double offset_x = 0.f;
 	double offset_y = 0.f;
@@ -69,7 +69,7 @@ QuadPoint getQuad(Sprite* sprite) {
 }
 
 Point getPosition(Sprite* sprite) {
-	debugprint(LOG_DEBUG, DBGFORM"\n", DBGSPEC);
+	lprintf(LOG_DEBUG, DBGFORM"\n", DBGSPEC);
 	Point retval = {0.f, 0.f};
 	if(sprite) {
 		retval.x = sprite->pos_x;
@@ -79,7 +79,7 @@ Point getPosition(Sprite* sprite) {
 }
 
 Point setPosition(Sprite* sprite, double x, double y) {
-	debugprint(LOG_DEBUG, DBGFORM"%f, %f\n", DBGSPEC, x, y);
+	lprintf(LOG_DEBUG, DBGFORM"%f, %f\n", DBGSPEC, x, y);
 	Point retval = {0.f, 0.f};
 	if(sprite) {
 		// TODO: check bounds and adjust accordingly

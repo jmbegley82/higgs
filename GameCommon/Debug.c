@@ -31,7 +31,7 @@ void setLoglevel(unsigned int level) {
 	pthread_mutex_unlock(&_loglevel_mutex);
 }
 
-int debugprint(int level, const char * restrict format, ...) {
+int lprintf(int level, const char * restrict format, ...) {
 	int retval = 0;
 	pthread_mutex_lock(&_loglevel_mutex);
 		int logLevel = _loglevel;

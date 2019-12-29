@@ -19,6 +19,6 @@
 bool initDebug();
 int getLoglevel();
 void setLoglevel(unsigned int level);
-int debugprint(int level, const char * restrict format, ...);
+int lprintf(int level, const char * restrict format, ...);
 
 #endif //DEBUG_H

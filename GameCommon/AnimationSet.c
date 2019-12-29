@@ -12,7 +12,7 @@
 char* phcsid = "ph celset";
 
 AnimationSet* getPHAnimSet(char* identity, unsigned int setCount) {
-	debugprint(LOG_DEBUG, DBGFORM"%s, %d\n", DBGSPEC, identity, setCount);
+	lprintf(LOG_DEBUG, DBGFORM"%s, %d\n", DBGSPEC, identity, setCount);
 	AnimationSet* retval = malloc(sizeof(AnimationSet));
 	retval->identity = identity;
 	retval->sets = malloc(sizeof(CelSet)*setCount);
@@ -25,7 +25,7 @@ AnimationSet* getPHAnimSet(char* identity, unsigned int setCount) {
 }
 
 AnimationSet* newAnimationSet(char* identity) {
-	debugprint(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
+	lprintf(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
 	AnimationSet* retval = malloc(sizeof(AnimationSet));
 	//retval->identity = strcpy;
 	retval->identity = identity;
@@ -56,7 +56,7 @@ AnimationSet* cloneAnimationSet(AnimationSet* base) {
 }
 
 int getCelSetIndex(AnimationSet* aset, char* identity) {
-	debugprint(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
+	lprintf(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
 	int retval = -1;
 	for(int i=0; i<aset->setCount && retval == -1; i++) {
 		if(strcmp(aset->sets[i]->identity, identity) == 0)
@@ -66,14 +66,14 @@ int getCelSetIndex(AnimationSet* aset, char* identity) {
 }
 
 CelSet* getCurrentCelSet(AnimationSet* aset) {
-	debugprint(LOG_DEBUG, DBGFORM"\n", DBGSPEC);
+	lprintf(LOG_DEBUG, DBGFORM"\n", DBGSPEC);
 	CelSet* retval = NULL;
 	if(aset) retval = aset->sets[aset->currentSetIdx];
 	return retval;;
 }
 
 CelSet* getCelSetById(AnimationSet* aset, char* identity) {
-	debugprint(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
+	lprintf(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
 	CelSet* retval = NULL;
 	/*
 	for(int i=0; i<aset->setCount && retval != NULL; i++) {
@@ -87,7 +87,7 @@ CelSet* getCelSetById(AnimationSet* aset, char* identity) {
 }
 
 CelSet* getCelSetByIndex(AnimationSet* aset, unsigned int index) {
-	debugprint(LOG_DEBUG, DBGFORM"%d\n", DBGSPEC, index);
+	lprintf(LOG_DEBUG, DBGFORM"%d\n", DBGSPEC, index);
 	CelSet* retval = NULL;
 	if(index < aset->setCount) {
 		retval = aset->sets[index];
@@ -96,7 +96,7 @@ CelSet* getCelSetByIndex(AnimationSet* aset, unsigned int index) {
 }
 
 CelSet* setCelSetById(AnimationSet* aset, char* identity) {
-	debugprint(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
+	lprintf(LOG_DEBUG, DBGFORM"%s\n", DBGSPEC, identity);
 	CelSet* retval = NULL;
 	int idx = getCelSetIndex(aset, identity);
 	if(idx > -1) {
@@ -106,7 +106,7 @@ CelSet* setCelSetById(AnimationSet* aset, char* identity) {
 }
 
 CelSet* setCelSetByIndex(AnimationSet* aset, unsigned int index) {
-	debugprint(LOG_DEBUG, DBGFORM"%d\n", DBGSPEC, index);
+	lprintf(LOG_DEBUG, DBGFORM"%d\n", DBGSPEC, index);
 	CelSet* retval = NULL;
 	retval = getCelSetByIndex(aset, index);
 	if(retval) aset->currentSetIdx = index;

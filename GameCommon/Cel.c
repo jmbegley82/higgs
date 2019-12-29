@@ -9,7 +9,7 @@
 #include "Debug.h"
 
 Cel* newCel(Image img, double width, double height, double offset_x, double offset_y) {
-	debugprint(LOG_DEBUG, DBGFORM"%d %f %f %f %f\n", DBGSPEC, img, width, height, offset_x, offset_y);
+	lprintf(LOG_DEBUG, DBGFORM"%d %f %f %f %f\n", DBGSPEC, img, width, height, offset_x, offset_y);
 	Cel* retval = malloc(sizeof(Cel));
 	retval->img = img;
 	retval->width = width;
